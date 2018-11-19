@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+	version="2.0">
+	<jsp:directive.page contentType="text/html; charset=UTF-8" 
+		pageEncoding="UTF-8" session="false"/>
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+		omit-xml-declaration="true" />
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Foods R Us</title>
+</head>
+	<body>
+	
+		<div style="text-align:left;">
+			<a href="Dash">Back to dashboard </a>
+		</div>
+		
+		<div style="text-align:right;">
+			<a href="Cart"> View cart</a>
+		</div>
+		
+		<h2 style="color:blue;">Browse</h2>
+		
+		
+		
+		<form action="Browse" method="POST">
+		
+			<input type="text" name="name" value="${name}" placeholder="Food name"/>
+		
+			<select id="categoryDropDown" name="catID" value="${catID}">
+
+				<option selected="any" value="NONE">Select Category:</option>
+				<option value="3">Meat</option>
+				<option value="4">Cheese</option>
+				<option value="5">Ice Cream</option>
+				<option value="6">Cereal</option>
+				
+			</select><br/>
+			
+			<select id="sortByDropDown" name="sortBy" value="${sortBy}">
+
+				<option selected="any" value="NAME">Sort by:</option>
+				<option value="NAME ASC">Name A-Z</option>
+				<option value="NAME DESC">Name Z-A</option>
+				<option value="PRICE ASC">Price low to high</option>
+				<option value="PRICE DESC">Price high to low</option>
+				
+			</select><br/>
+			
+			
+			
+			<button name="search" value="1">search</button>
+		</form> 
+		
+		
+		
+		<c:if test="${!empty result}">
+			<h3 style="color:blue;">Search result</h3>
+			
+				<c:forEach items="${result}" var = "b">
+					<table border="1">
+						<tr style="padding: 6px;"><td> Name: ${b.name} </td></tr>
+						<tr style="padding: 6px;"><td> Product number: ${b.number}</td></tr>
+						<tr style="padding: 6px;"><td> Price: ${b.price}</td></tr>
+						<tr style="padding: 6px;"><td> Catalog ID: ${b.catid}</td></tr><br/>				
+					</table>
+					
+					<form action="Cart" method="POST">
+						<input type="hidden" name="name" value="${b.name}"></input>
+						<input type="hidden" name="id" value="${b.number}"></input>
+						<input type="hidden" name="price" value="${b.price}"></input>
+						<input type="number" min="1" name="qty" value="1" placeholder="qty"/>
+						
+						<input type="hidden" name="add" value="true"/>
+						
+						<button>Add to cart</button>
+						
+					</form>
+				</c:forEach>
+				
+			
+			
+		</c:if>
+		
+		<c:if test="${!empty error}">
+			<h3 style="color: red;">${error}</h3>
+		</c:if>
+		
+		<c:if test="${empty error and empty result}">
+			<h3 style="color: green;">nothing found!</h3>
+		</c:if>
+	
+	</body>
+</html>
+
+</jsp:root>
