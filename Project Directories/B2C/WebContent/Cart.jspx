@@ -58,7 +58,13 @@
 			<h2 style="color:blue; text-align:center">Sub total: ${cart.subTotal}</h2>
 			
 			<div style="text-align:center;">
-				<a href="Browse">Continue shopping</a>
+				<form action="Browse">
+					<input type="submit" value="Continue shopping"/>
+				</form>
+				
+				<form action="CheckOut">
+					<input type="submit" value="Check out"/>
+				</form>
 			</div>
 		</c:if>
 		
