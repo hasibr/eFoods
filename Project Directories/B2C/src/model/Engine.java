@@ -187,5 +187,57 @@ public class Engine {
 		return cart;
 	}
 	//-------------------------END CART METHODS--------------------------------------------------
+	
+	/**
+	 * returns the fraction of the total price that is HST
+	 * 
+	 * @param price
+	 * @return
+	 */
+	public String calcHst(String price) {
+		
+		double p = Double.parseDouble(price.replace("$", ""));
+		double ans = p * 0.13;
+		
+		return String.format("$%.2f", ans);
+	}
+	
+	
+	/**
+	 *  includes the tax in the total price. used when there is no shipping cost
+	 * @param price
+	 * @return
+	 */
+	public String addTax(String price) {
+		
+		double p = Double.parseDouble(price.replace("$", ""));
+		double ans = p * 1.13;
+		
+		return String.format("$%.2f", ans);
+		
+	}
+	
+	/**
+	 *  includes the tax and shipping cost. used when there is a shipping cost involved
+	 * @param price
+	 * @return
+	 */
+	public String addTaxAndShipping(String price) {
+		
+		double p = Double.parseDouble(price.replace("$", ""));
+		double ans = (p * 1.13) + 5;
+		
+		return String.format("$%.2f", ans);
+	}
+	
+	/**
+	 *  returns true if the total price before taxes is greater than 100
+	 * @param price
+	 * @return
+	 */
+	public boolean over100(String price) {
+		
+		return Double.parseDouble(price.replace("$", "")) > 100;
+	}
 
 }

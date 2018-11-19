@@ -19,6 +19,40 @@
 		<a href="Dash">Back to dashboard</a>
 		<h2 style="color:blue;">Check out menu</h2>
 		
+		<table style="margin:auto;" border="1">
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Price</th>
+				<th>Qty</th>
+				<th>Total</th>
+			</tr>
+			
+			<c:forEach var="bean" items="${cart.items}">
+					
+				<tr>
+					<td>${bean.value.number}</td>
+					<td>${bean.value.name}</td>
+					<td>${bean.value.price}</td>
+					<td>${bean.value.qty}</td>
+					<td>${bean.value.totalPrice}</td>
+				</tr>
+					
+			</c:forEach>
+				
+		</table><br/>
+		
+		<div style="text-align:center" >
+				<table style="margin:auto;">
+					<tr><th>Summary</th></tr>
+					<tr><td>Sub Total: ${cart.subTotal}</td></tr>
+					<tr><td>HST: ${hst}</td></tr>
+					<tr><td>Shipping: ${shipping}</td></tr>
+					<tr><td>Total: ${total}</td></tr>
+					
+				</table>
+			</div>
+		
 		
 		
 		<c:if test="${!empty error}">

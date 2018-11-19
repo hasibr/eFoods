@@ -54,8 +54,21 @@
 				</div>	
 				
 			</form>
-		
-			<h2 style="color:blue; text-align:center">Sub total: ${cart.subTotal}</h2>
+			
+			<c:if test="${empty cart.items}">
+				<h3 style="color:red; text-align:center">Cart is empty.</h3>
+			</c:if>
+			
+			<div style="text-align:center" >
+				<table style="margin:auto;">
+					<tr><th>Summary</th></tr>
+					<tr><td>Sub Total: ${cart.subTotal}</td></tr>
+					<tr><td>HST: ${hst}</td></tr>
+					<tr><td>Shipping: ${shipping}</td></tr>
+					<tr><td>Total: ${total}</td></tr>
+					
+				</table>
+			</div>
 			
 			<div style="text-align:center;">
 				<form action="Browse">

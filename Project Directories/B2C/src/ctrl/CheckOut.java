@@ -6,6 +6,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import model.CartBEAN;
+import model.Engine;
 
 /**
  * Servlet implementation class CheckOut
@@ -27,7 +31,36 @@ public class CheckOut extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getServletContext().getRequestDispatcher("/CheckOut.jspx").forward(request, response);
+			
+		HttpSession session = request.getSession();
+		CartBEAN cart = (CartBEAN) session.getAttribute("cart");
+			
+		if(cart.getItems().isEmpty()) {
+			response.sendRedirect("Cart");
+		}
+		else {
+			
+			try {
+				Engine brain = Engine.getInstance();
+				
+				request.setAttribute("cart", cart);	
+				request.setAttribute("hst", brain.calcHst(cart.getSubTotal()));
+				
+				if(brain.over100(cart.getSubTotal())) {
+					request.setAttribute("shipping", "$0.00");
+					request.setAttribute("total", brain.addTax(cart.getSubTotal()));
+				}
+				else {
+					request.setAttribute("shipping", "$5.00");
+					request.setAttribute("total", brain.addTaxAndShipping(cart.getSubTotal()));
+				}
+				
+				request.getServletContext().getRequestDispatcher("/CheckOut.jspx").forward(request, response);
+			}
+			catch(Exception e) {
+				request.setAttribute("error", e.getMessage());
+			}
+		}
 	}
 
 	/**

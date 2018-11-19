@@ -39,18 +39,15 @@ public class Cart extends HttpServlet {
 		if(request.getParameter("update") != null) { // update the cart
 			
 			updateCart(request, response);
-//			System.out.println("update button pressed!");
 			
 		}
 		else if(request.getParameter("add") == null) { // show the cart if nothing was added
 			
 			showTheCart(request, response);
-//			System.out.println("add IS null");
 		}
 		else if(request.getParameter("add") != null) { // add new item to the cart and display it
 			
 			showTheCartWithItem(request, response);
-//			System.out.println("add is NOT null");
 			
 		}
 		request.getServletContext().getRequestDispatcher("/Cart.jspx").forward(request, response);
@@ -87,10 +84,12 @@ public class Cart extends HttpServlet {
 			
 			// get the empty cart
 			CartBEAN cart = (CartBEAN) session.getAttribute("cart");
-//			session.setAttribute("cart", cart);
 			
 			//show the empty cart on the page
 			request.setAttribute("cart", cart);
+			request.setAttribute("hst", "$0.00");
+			request.setAttribute("shipping", "$0.00");
+			request.setAttribute("total", "$0.00");
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -136,6 +135,18 @@ public class Cart extends HttpServlet {
 			
 			// show the cart on the client's page.
 			request.setAttribute("cart", cart);
+			request.setAttribute("hst", brain.calcHst(cart.getSubTotal()));
+			
+			if(brain.over100(cart.getSubTotal())) {
+				request.setAttribute("shipping", "$0.00");
+				request.setAttribute("total", brain.addTax(cart.getSubTotal()));
+			}
+			else {
+				request.setAttribute("shipping", "$5.00");
+				request.setAttribute("total", brain.addTaxAndShipping(cart.getSubTotal()));
+			}
+			
+			
 			
 		}
 		catch(Exception e) {
@@ -176,6 +187,16 @@ public class Cart extends HttpServlet {
 			
 			// show the cart on the client's page.
 			request.setAttribute("cart", cart);
+			request.setAttribute("hst", brain.calcHst(cart.getSubTotal()));
+			
+			if(brain.over100(cart.getSubTotal())) {
+				request.setAttribute("shipping", "$0.00");
+				request.setAttribute("total", brain.addTax(cart.getSubTotal()));
+			}
+			else {
+				request.setAttribute("shipping", "$5.00");
+				request.setAttribute("total", brain.addTaxAndShipping(cart.getSubTotal()));
+			}
 			
 		}
 		catch(Exception e) {

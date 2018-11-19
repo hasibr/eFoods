@@ -20,7 +20,7 @@
 		
 		<a href="Categories?show=1">Categories</a><br/>
 		<a href="Browse">Browse</a><br/>
-		<a href="Cart">Shopping Cart</a><br/>
+		<a href="Cart?update=1">Shopping Cart</a><br/>
 	
 	</body>
 </html>
