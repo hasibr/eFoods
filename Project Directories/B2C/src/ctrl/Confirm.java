@@ -43,7 +43,7 @@ public class Confirm extends HttpServlet {
 			brain.doConfirm(cart);
 			
 			//redirect the user to their account
-			//response.sendRedirect("Account");
+			response.sendRedirect("Account");
 		}
 		catch(Exception e) {
 			e.printStackTrace();
