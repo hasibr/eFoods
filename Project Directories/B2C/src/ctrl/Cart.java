@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.CartBEAN;
+import model.CartBean;
 import model.Engine;
-import model.ItemBEAN;
+import model.ItemBean;
 
 /**
  * Servlet implementation class Cart
@@ -38,7 +38,14 @@ public class Cart extends HttpServlet {
 		
 		if(request.getParameter("update") != null) { // update the cart
 			
-			updateCart(request, response);
+			CartBean c = (CartBean) request.getSession().getAttribute("cart");
+			
+			if(c == null || c.getItems().isEmpty()) {
+				showTheCart(request, response);
+			}else {
+				updateCart(request, response);
+			}
+			
 			
 		}
 		else if(request.getParameter("add") == null) { // show the cart if nothing was added
@@ -79,11 +86,11 @@ public class Cart extends HttpServlet {
 			if(session.getAttribute("cart") == null) {
 				// total value of the cart is $0.00 cause it's empty
 				session.setAttribute("cart",
-						new CartBEAN(new HashMap<String,ItemBEAN>(), "$0.00"));
+						new CartBean(new HashMap<String,ItemBean>(), "$0.00"));
 			}
 			
 			// get the empty cart
-			CartBEAN cart = (CartBEAN) session.getAttribute("cart");
+			CartBean cart = (CartBean) session.getAttribute("cart");
 			
 			//show the empty cart on the page
 			request.setAttribute("cart", cart);
@@ -113,11 +120,11 @@ public class Cart extends HttpServlet {
 			
 			if(session.getAttribute("cart") == null) {// create new empty cart
 				session.setAttribute("cart",
-						new CartBEAN(new HashMap<String,ItemBEAN>(), "$0.00"));
+						new CartBean(new HashMap<String,ItemBean>(), "$0.00"));
 			}
 			
 			// get the client's cart
-			CartBEAN cart = (CartBEAN) session.getAttribute("cart");
+			CartBean cart = (CartBean) session.getAttribute("cart");
 			
 			
 			// collect the data from the client's request.
@@ -127,7 +134,7 @@ public class Cart extends HttpServlet {
 			String qty = request.getParameter("qty");
 			
 			// create new item bean with that data
-			ItemBEAN item = new ItemBEAN(id, name, price, qty);
+			ItemBean item = new ItemBean(id, name, price, qty);
 					
 			//add the item to the cart and store it in the client's session
 			cart = brain.addToCart(cart, item);
@@ -158,9 +165,6 @@ public class Cart extends HttpServlet {
 	
 	private void updateCart(HttpServletRequest request, HttpServletResponse response) {
 		
-//		for(String name : request.getParameterMap().keySet()) {
-//			System.out.println("name> " + name);
-//		}
 		
 		try {
 			Engine brain = Engine.getInstance();
@@ -168,7 +172,7 @@ public class Cart extends HttpServlet {
 			
 			
 			// get the client's cart
-			CartBEAN cart = (CartBEAN) session.getAttribute("cart");
+			CartBean cart = (CartBean) session.getAttribute("cart");
 			
 			/*
 			 * get the items the parameters from the url. these are the items that
@@ -180,7 +184,7 @@ public class Cart extends HttpServlet {
 			 */
 			Map<String, String[]> parameters = request.getParameterMap();
 			
-					
+			
 			//update the items in the cart and store it in the client's session
 			cart = brain.updateCart(cart, parameters);
 			session.setAttribute("cart", cart);

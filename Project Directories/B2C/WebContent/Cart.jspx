@@ -72,17 +72,18 @@
 			
 			<div style="text-align:center;">
 				<form action="Browse">
-					<input type="submit" value="Continue shopping"/>
+					<!-- <input type="submit" value="Continue shopping"/> -->
+					<input type="button" value="Continue Shopping" onclick="location=&quot;Browse?name=&amp;search=1&amp;sortBy=NAME&amp;catID=NONE&quot;"/>
 				</form>
 				
-				<form action="CheckOut">
+				<form action="Checkout">
 					<input type="submit" value="Check out"/>
 				</form>
 			</div>
 		</c:if>
 		
 		<c:if test="${!empty error}">
-			<h2 style="color:red">${error}</h2>
+			<h2 style="color:red; text-align:center;">${error}</h2>
 		</c:if>
 	
 	</body>

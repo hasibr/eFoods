@@ -9,7 +9,7 @@ package model;
  * Instantiation, automatically calculates it's total price.
  *
  */
-public class ItemBEAN{
+public class ItemBean{
 	
 	private String number, // product number / product id / ID. the Engine refers to this as "ItemID"
 					name,
@@ -19,7 +19,7 @@ public class ItemBEAN{
 					catid;  // catalog id
 	
 	
-	public ItemBEAN(String number, String name, String price, String qty)
+	public ItemBean(String number, String name, String price, String qty)
 	{
 		super();
 		this.number = number;
@@ -33,7 +33,7 @@ public class ItemBEAN{
 	
 	
 
-	public ItemBEAN(String number, String name, String price, String qty, String catid)
+	public ItemBean(String number, String name, String price, String qty, String catid)
 {
 	super();
 	this.number = number;

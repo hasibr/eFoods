@@ -22,11 +22,11 @@ public class CategoryDAO{
 //	public static final String DB_URL = "jdbc:derby://red.eecs.yorku.ca:64413/EECS;user=student;password=secret";
 
 	
-	private List<CategoryBEAN> beans;
+	private List<CategoryBean> beans;
 	
 	public CategoryDAO() throws Exception {
 		
-		beans = new ArrayList<CategoryBEAN>();
+		beans = new ArrayList<CategoryBean>();
 		
 		try {
 			Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
@@ -39,11 +39,11 @@ public class CategoryDAO{
 			
 			ResultSet r = s.executeQuery(query);
 			
-			CategoryBEAN bean;
+			CategoryBean bean;
 			
 			while(r.next()) {
 				
-				bean = new CategoryBEAN(r.getString("NAME"), r.getString("DESCRIPTION"), r.getString("ID"));
+				bean = new CategoryBean(r.getString("NAME"), r.getString("DESCRIPTION"), r.getString("ID"));
 				beans.add(bean);
 				
 			}
@@ -65,7 +65,7 @@ public class CategoryDAO{
 		
 	}
 	
-	public List<CategoryBEAN> retrieve() {
+	public List<CategoryBean> retrieve() {
 		
 		return this.beans;
 	}

@@ -19,32 +19,32 @@ import java.util.HashMap;
  * it's total price automatically.
  *
  */
-public class CartBEAN
+public class CartBean
 {
-	HashMap<String,ItemBEAN> items;
+	HashMap<String,ItemBean> items;
 	
 	String subTotal;
 
-	public CartBEAN(HashMap<String,ItemBEAN> items, String subTotal)
+	public CartBean(HashMap<String,ItemBean> items, String subTotal)
 	{
 		super();
 		this.items = items;
 		this.subTotal = subTotal;
 	}
 
-	public HashMap<String, ItemBEAN> getItems()
+	public HashMap<String, ItemBean> getItems()
 	{
 		return items;
 	}
 	
 	//MAY IMPLEMET A FEATURE IN THIS METHOD THAT LOOPS THROUGH THE ITEMS INSIDE
 	//IT AND UPDATE THE SUBTOTAL AUTOMATICALLY.
-	public void setItems(HashMap<String, ItemBEAN> items)
+	public void setItems(HashMap<String, ItemBean> items)
 	{
 		this.items = items;
 		
 		double total = 0.00;
-		for(ItemBEAN item: items.values()) {
+		for(ItemBean item: items.values()) {
 			
 			// sum up the total prices of all the items.
 			total += Double.parseDouble(item.getTotalPrice().replace("$", ""));

@@ -14,7 +14,7 @@ public class ItemDAO{
 //	public static final String DB_URL = "jdbc:derby://red.eecs.yorku.ca:64413/EECS;user=student;password=secret";
 
 	
-//	private List<ItemBEAN> beans;
+//	private List<ItemBean> beans;
 	
 	public ItemDAO(){ }
 	
@@ -23,10 +23,10 @@ public class ItemDAO{
 	 * @return a list of all the food items in the database
 	 * @throws Exception 
 	 */
-//	public List<ItemBEAN> retrieve() throws Exception {
+//	public List<ItemBean> retrieve() throws Exception {
 //		
 //		try {
-//			List<ItemBEAN> beans = new ArrayList<ItemBEAN>();
+//			List<ItemBean> beans = new ArrayList<ItemBean>();
 //			
 //			Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
 //			Connection con = DriverManager.getConnection(DB_URL);
@@ -38,7 +38,7 @@ public class ItemDAO{
 //			
 //			ResultSet r = s.executeQuery(query);
 //			
-//			ItemBEAN bean;
+//			ItemBean bean;
 //			
 //			while(r.next()) {
 //				
@@ -52,7 +52,7 @@ public class ItemDAO{
 ////						supid = r.getString("SUPID"),
 ////						costprice = r.getString("COSTPRICE");
 //				
-//				bean = new ItemBEAN(number, name, price, qty, catid);
+//				bean = new ItemBean(number, name, price, qty, catid);
 //				beans.add(bean);
 //				
 //			}
@@ -82,10 +82,10 @@ public class ItemDAO{
 	 * based on the category given
 	 * @throws Exception 
 	 */
-	public List<ItemBEAN> retrieve(String foodName, String sortBy, String catID) throws Exception{
+	public List<ItemBean> retrieve(String foodName, String sortBy, String catID) throws Exception{
 		
 		try {
-			List<ItemBEAN> beans = new ArrayList<ItemBEAN>();
+			List<ItemBean> beans = new ArrayList<ItemBean>();
 			
 			Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
 			Connection con = DriverManager.getConnection(DB_URL);
@@ -122,7 +122,7 @@ public class ItemDAO{
 			
 			ResultSet r = s.executeQuery(query);
 			
-			ItemBEAN bean;
+			ItemBean bean;
 			
 			while(r.next()) {
 				
@@ -136,7 +136,7 @@ public class ItemDAO{
 //						supid = r.getString("SUPID"),
 //						costprice = r.getString("COSTPRICE");
 				
-				bean = new ItemBEAN(number, name, price, qty, catid);
+				bean = new ItemBean(number, name, price, qty, catid);
 				beans.add(bean);
 				
 			}

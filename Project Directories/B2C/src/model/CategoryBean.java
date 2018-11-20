@@ -10,14 +10,14 @@ import java.io.File;
  *
  * represents a category. nothing special here.
  */
-public class CategoryBEAN{
+public class CategoryBean{
 	
 	private String name;
 	private String description;
 //	private File PICTURE;
 	private String id;
 	
-	public CategoryBEAN(String name, String desc, String id) {
+	public CategoryBean(String name, String desc, String id) {
 		
 		this.name = name;
 		this.description = desc;

@@ -16,12 +16,13 @@
 <title>Foods R Us</title>
 </head>
 	<body>
-		<h1 style="color: blue;">Welcome to Foods R Us</h1><br/>
+		<a href="Dash">Back to dashboard</a>
+		<h2 style="color:blue;">My Account</h2>
 		
-		<a href="Categories?show=1">Categories</a><br/>
-		<a href="Browse?name=&amp;search=1&amp;sortBy=NAME&amp;catID=NONE">Browse</a><br/>
-		<a href="Cart?update=1">Shopping Cart</a><br/>
-		<a href="Account">My Account</a><br/>
+		
+		<c:if test="${!empty error}">
+			<h3 style="color: red;">${error}</h3>
+		</c:if>
 	
 	</body>
 </html>

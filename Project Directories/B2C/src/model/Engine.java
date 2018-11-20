@@ -43,7 +43,7 @@ public class Engine {
 	 * @return a list containing category beans. These beans contain the names, id's and
 	 * descriptions of all the different categories offered by Foods R Us.
 	 */
-	public List<CategoryBEAN> getCategoryList(){
+	public List<CategoryBean> getCategoryList(){
 		
 		return catDAO.retrieve();
 	}
@@ -57,7 +57,7 @@ public class Engine {
 	 * @return list containing all the food items in the database that meet the requirements 
 	 * @throws Exception
 	 */
-	public List<ItemBEAN> getItemList(String name, String sortBy, String catID) throws Exception{
+	public List<ItemBean> getItemList(String name, String sortBy, String catID) throws Exception{
 		
 		return itemDAO.retrieve(name, sortBy, catID);
 	}
@@ -73,7 +73,7 @@ public class Engine {
 	 * @param item item they are adding
 	 * @return cart with the added item(s)
 	 */
-	public CartBEAN addToCart(CartBEAN cart, ItemBEAN item) {
+	public CartBean addToCart(CartBean cart, ItemBean item) {
 		
 		String itemID = item.getNumber(); //"itemID" (unique product number) of the specific item.
 		int orderQty = Integer.parseInt(item.getQty()); // quantity the client wants to order
@@ -84,7 +84,7 @@ public class Engine {
 		 * the bean has a quantity attribute that changes depending on of the client adds or removes that
 		 * same item. the total price attribute changes automatically.
 		 */
-		HashMap<String,ItemBEAN> itemsInCart = cart.getItems();
+		HashMap<String,ItemBean> itemsInCart = cart.getItems();
 		
 		
 		/*
@@ -107,7 +107,7 @@ public class Engine {
 		else {
 			
 			// get the instance of the itme that is already in the cart
-			ItemBEAN b = itemsInCart.get(itemID);
+			ItemBean b = itemsInCart.get(itemID);
 			
 			// adds the qty the client wants with the qty already in the cart
 			int newQty = orderQty + Integer.parseInt(b.getQty());
@@ -136,7 +136,8 @@ public class Engine {
 	 * @param parameters
 	 * @return
 	 */
-	public CartBEAN updateCart(CartBEAN cart, Map<String, String[]> parameters) {
+	public CartBean updateCart(CartBean cart, Map<String, String[]> parameters) {
+		
 		
 		if(cart.getItems().isEmpty()) {
 			return cart;
@@ -156,7 +157,7 @@ public class Engine {
 		}
 		//-------------------------------------------------------------
 		
-		HashMap<String, ItemBEAN> items = cart.getItems();
+		HashMap<String, ItemBean> items = cart.getItems();
 		
 		
 		/*
@@ -186,8 +187,28 @@ public class Engine {
 		
 		return cart;
 	}
+	
+	/**
+	 * given the shopping cart, remove all the items inside it.
+	 * 
+	 * @param cart
+	 * @return
+	 */
+	public CartBean emptyCart(CartBean cart) {
+		
+		cart.setItems(new HashMap<String,ItemBean>());
+		
+		return cart;
+	}
+	
+	
+	public void confirmOrder(CartBean cart) {
+		
+	}
 	//-------------------------END CART METHODS--------------------------------------------------
 	
+	
+	//------------------------- helper methods --------------------------------------------------
 	/**
 	 * returns the fraction of the total price that is HST
 	 * 
@@ -239,5 +260,6 @@ public class Engine {
 		
 		return Double.parseDouble(price.replace("$", "")) > 100;
 	}
-
+	
+	//------------------------- end helper methods ---------------------------------------
 }

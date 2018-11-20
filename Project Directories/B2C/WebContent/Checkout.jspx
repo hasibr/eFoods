@@ -43,17 +43,25 @@
 		</table><br/>
 		
 		<div style="text-align:center" >
-				<table style="margin:auto;">
-					<tr><th>Summary</th></tr>
-					<tr><td>Sub Total: ${cart.subTotal}</td></tr>
-					<tr><td>HST: ${hst}</td></tr>
-					<tr><td>Shipping: ${shipping}</td></tr>
-					<tr><td>Total: ${total}</td></tr>
+			<table style="margin:auto;">
+				<tr><th>Summary</th></tr>
+				<tr><td>Sub Total: ${cart.subTotal}</td></tr>
+				<tr><td>HST: ${hst}</td></tr>
+				<tr><td>Shipping: ${shipping}</td></tr>
+				<tr><td>Total: ${total}</td></tr>
 					
-				</table>
-			</div>
+			</table>
+		</div><br/>
 		
-		
+		<div style="text-align:center">
+		<form action="Checkout" method="POST">
+        	<input type="submit" name="calc" value="Confirm Order"/>
+        	
+        	<input type="button" value="Continue Shopping" onclick="location=&quot;Browse?name=&amp;search=1&amp;sortBy=NAME&amp;catID=NONE&quot;"/>
+        	
+        	<input type="submit" name="calc" value="Cancel Order"/>
+        </form>
+        </div>
 		
 		<c:if test="${!empty error}">
 			<h3 style="color: red;">${error}</h3>
