@@ -67,14 +67,15 @@ public class Engine {
 	}
 	
 	
-	//-------------------------CART METHODS------------------------------------------------------
 	
-	
-	
-	public CartBean doCart(ItemBean item, CartBean cart, String add, String update, Map<String, String[]> parameters) {
+	public CartBean doCart(ItemBean item, CartBean cart, String add,
+			String update, String cancel, Map<String, String[]> parameters) {
 		
 		
-		
+		if(cancel != null && cancel.equalsIgnoreCase("true")) {
+			return emptyCart(cart);
+//			System.out.println("cancel called");
+		}
 		if(add != null && add.equalsIgnoreCase("true")) {
 //			System.out.println("add called");
 			return addToCart(cart, item);
@@ -91,6 +92,20 @@ public class Engine {
 		
 	}
 	
+	
+	public CartBean doCheckout(CartBean cart) {
+		
+		return cart;
+	}
+	
+	
+	public void doConfirm() {
+		
+		
+	}
+	
+	
+//------------------------- helper methods --------------------------------------------------
 	
 	/**
 	 * 
@@ -221,72 +236,12 @@ public class Engine {
 	 * @param cart
 	 * @return
 	 */
-	public CartBean emptyCart(CartBean cart) {
+	private CartBean emptyCart(CartBean cart) {
 		
 		cart.setItems(new HashMap<String,ItemBean>());
 		
 		return cart;
 	}
 	
-	
-	public void confirmOrder(CartBean cart) {
-		
-	}
-	//-------------------------END CART METHODS--------------------------------------------------
-	
-	
-	//------------------------- helper methods --------------------------------------------------
-	/**
-	 * returns the fraction of the total price that is HST
-	 * 
-	 * @param price
-	 * @return
-	 */
-	public String calcHst(String price) {
-		
-		double p = Double.parseDouble(price.replace("$", ""));
-		double ans = p * 0.13;
-		
-		return String.format("$%.2f", ans);
-	}
-	
-	
-	/**
-	 *  includes the tax in the total price. used when there is no shipping cost
-	 * @param price
-	 * @return
-	 */
-	public String addTax(String price) {
-		
-		double p = Double.parseDouble(price.replace("$", ""));
-		double ans = p * 1.13;
-		
-		return String.format("$%.2f", ans);
-		
-	}
-	
-	/**
-	 *  includes the tax and shipping cost. used when there is a shipping cost involved
-	 * @param price
-	 * @return
-	 */
-	public String addTaxAndShipping(String price) {
-		
-		double p = Double.parseDouble(price.replace("$", ""));
-		double ans = (p * 1.13) + 5;
-		
-		return String.format("$%.2f", ans);
-	}
-	
-	/**
-	 *  returns true if the total price before taxes is greater than 100
-	 * @param price
-	 * @return
-	 */
-	public boolean over100(String price) {
-		
-		return Double.parseDouble(price.replace("$", "")) > 100;
-	}
-	
-	//------------------------- end helper methods ---------------------------------------
+//------------------------- end helper methods ---------------------------------------
 }

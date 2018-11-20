@@ -40,6 +40,8 @@ public class Cart extends HttpServlet {
 			Engine brain= Engine.getInstance();
 			HttpSession session = request.getSession();
 			
+			
+			// if the client doesn't have a cart (first visit), make one.
 			CartBean cart;
 			if(session.getAttribute("cart") == null) {
 				cart = new CartBean(new HashMap<String,ItemBean>(), "$0.00");
@@ -57,6 +59,7 @@ public class Cart extends HttpServlet {
 			
 			String add = request.getParameter("add");
 			String update = request.getParameter("update");
+			String cancel = request.getParameter("cancel");
 			Map<String, String[]> parameters = request.getParameterMap();
 						
 			// create new item bean with that data
@@ -69,7 +72,7 @@ public class Cart extends HttpServlet {
 			
 			ItemBean item = new ItemBean(id, name, price, qty);
 			
-			CartBean result = brain.doCart(item, cart, add, update, parameters);
+			CartBean result = brain.doCart(item, cart, add, update, cancel, parameters);
 			request.setAttribute("cart", result);
 		
 		}

@@ -46,20 +46,20 @@
 			<table style="margin:auto;">
 				<tr><th>Summary</th></tr>
 				<tr><td>Sub Total: ${cart.subTotal}</td></tr>
-				<tr><td>HST: ${hst}</td></tr>
-				<tr><td>Shipping: ${shipping}</td></tr>
-				<tr><td>Total: ${total}</td></tr>
+				<tr><td>HST: ${cart.tax}		   </td></tr>
+				<tr><td>Shipping: ${cart.shipping} </td></tr>
+				<tr><td>Total: ${cart.total}	   </td></tr>
 					
 			</table>
 		</div><br/>
 		
 		<div style="text-align:center">
-		<form action="Checkout" method="POST">
-        	<input type="submit" name="calc" value="Confirm Order"/>
+		<form>
+        	<input type="button" value="Confirm Order"/>
         	
         	<input type="button" value="Continue Shopping" onclick="location=&quot;Browse?name=&amp;search=1&amp;sortBy=NAME&amp;catID=NONE&quot;"/>
         	
-        	<input type="submit" name="calc" value="Cancel Order"/>
+        	<input type="button" value="Cancel Order" onclick="location=&quot;Cart?cancel=true&quot;"/>
         </form>
         </div>
 		
