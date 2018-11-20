@@ -35,7 +35,7 @@ public class Categories extends HttpServlet {
 				Engine brain = Engine.getInstance();
 				
 				// returns the available categories the service offers  
-				request.setAttribute("result", brain.getCategoryList());
+				request.setAttribute("result", brain.doCategory());
 			}
 			catch(Exception e) {
 				request.setAttribute("error", e.getMessage());

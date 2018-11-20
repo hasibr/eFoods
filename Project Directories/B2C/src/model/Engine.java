@@ -7,6 +7,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import beans.CartBean;
+import beans.CategoryBean;
+import beans.ItemBean;
+
 public class Engine {
 	
 	private static Engine instance = null;
@@ -43,7 +47,7 @@ public class Engine {
 	 * @return a list containing category beans. These beans contain the names, id's and
 	 * descriptions of all the different categories offered by Foods R Us.
 	 */
-	public List<CategoryBean> getCategoryList(){
+	public List<CategoryBean> doCategory(){
 		
 		return catDAO.retrieve();
 	}
@@ -57,13 +61,36 @@ public class Engine {
 	 * @return list containing all the food items in the database that meet the requirements 
 	 * @throws Exception
 	 */
-	public List<ItemBean> getItemList(String name, String sortBy, String catID) throws Exception{
+	public List<ItemBean> doBrowse(String name, String sortBy, String catID) throws Exception{
 		
 		return itemDAO.retrieve(name, sortBy, catID);
 	}
 	
 	
 	//-------------------------CART METHODS------------------------------------------------------
+	
+	
+	
+	public CartBean doCart(ItemBean item, CartBean cart, String add, String update, Map<String, String[]> parameters) {
+		
+		
+		
+		if(add != null && add.equalsIgnoreCase("true")) {
+//			System.out.println("add called");
+			return addToCart(cart, item);
+		}
+		
+		if(update != null && update.equalsIgnoreCase("true")) {
+//			System.out.println("Update called");
+			return updateCart(cart, parameters);
+		}
+		
+		
+//		System.out.println("nothing called");	
+		return cart;
+		
+	}
+	
 	
 	/**
 	 * 
@@ -73,7 +100,7 @@ public class Engine {
 	 * @param item item they are adding
 	 * @return cart with the added item(s)
 	 */
-	public CartBean addToCart(CartBean cart, ItemBean item) {
+	private CartBean addToCart(CartBean cart, ItemBean item) {
 		
 		String itemID = item.getNumber(); //"itemID" (unique product number) of the specific item.
 		int orderQty = Integer.parseInt(item.getQty()); // quantity the client wants to order
@@ -136,7 +163,7 @@ public class Engine {
 	 * @param parameters
 	 * @return
 	 */
-	public CartBean updateCart(CartBean cart, Map<String, String[]> parameters) {
+	private CartBean updateCart(CartBean cart, Map<String, String[]> parameters) {
 		
 		
 		if(cart.getItems().isEmpty()) {

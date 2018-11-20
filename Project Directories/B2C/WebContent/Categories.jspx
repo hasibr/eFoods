@@ -17,6 +17,11 @@
 </head>
 	<body>
 		<a href="Dash">Back to dashboard</a>
+		
+		<div style="text-align:right;">
+			<a href="Cart"> View cart</a>
+		</div>
+		
 		<h2 style="color:blue;">Categories</h2>
 		
 		<form action="Categories" method="POST">

@@ -63,9 +63,9 @@
 				<table style="margin:auto;">
 					<tr><th>Summary</th></tr>
 					<tr><td>Sub Total: ${cart.subTotal}</td></tr>
-					<tr><td>HST: ${hst}</td></tr>
-					<tr><td>Shipping: ${shipping}</td></tr>
-					<tr><td>Total: ${total}</td></tr>
+					<tr><td>HST: ${cart.tax}		   </td></tr>
+					<tr><td>Shipping: ${cart.shipping} </td></tr>
+					<tr><td>Total: ${cart.total}       </td></tr>
 					
 				</table>
 			</div>

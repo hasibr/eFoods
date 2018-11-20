@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import beans.ItemBean;
+
 public class ItemDAO{
 	
 	private static final String DB_URL = "jdbc:derby://localhost:64413/EECS;user=student;password=secret";
