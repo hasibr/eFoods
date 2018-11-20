@@ -15,8 +15,8 @@ public class ItemBean{
 					name,
 					price,
 					qty, // number of the item
-					totalPrice,
-					catid;  // catalog id
+					totalPrice;
+					//catid;  // catalog id
 	
 	
 	public ItemBean(String number, String name, String price, String qty)
@@ -27,22 +27,22 @@ public class ItemBean{
 		this.price = String.format("$%.2f", Double.parseDouble(price.replace("$", "")));
 		this.qty = qty;
 		this.totalPrice = calcTotPrc(qty, price);
-		this.catid = "N/A";
+//		this.catid = "N/A";
 	}
 	
 	
 	
 
-	public ItemBean(String number, String name, String price, String qty, String catid)
-{
-	super();
-	this.number = number;
-	this.name = name;
-	this.price = price;
-	this.qty = qty;
-	this.totalPrice = calcTotPrc(qty, price);
-	this.catid = catid;
-}
+//	public ItemBean(String number, String name, String price, String qty, String catid)
+//{
+//	super();
+//	this.number = number;
+//	this.name = name;
+//	this.price = price;
+//	this.qty = qty;
+//	this.totalPrice = calcTotPrc(qty, price);
+//	this.catid = catid;
+//}
 
 
 	private String calcTotPrc(String qty, String price) {
@@ -161,22 +161,22 @@ public class ItemBean{
 	}
 
 
-
-
-	public String getCatid()
-	{
-		return catid;
-	}
-
-
-
-
-	public void setCatid(String catid)
-	{
-		this.catid = catid;
-	}
-
-
+//
+//
+//	public String getCatid()
+//	{
+//		return catid;
+//	}
+//
+//
+//
+//
+//	public void setCatid(String catid)
+//	{
+//		this.catid = catid;
+//	}
+//
+//
 
 
 	

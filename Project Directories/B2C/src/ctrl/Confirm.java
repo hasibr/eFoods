@@ -6,6 +6,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import beans.CartBean;
+import model.Engine;
 
 /**
  * Servlet implementation class Confirm
@@ -26,8 +30,24 @@ public class Confirm extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		
+		try {
+			Engine brain = Engine.getInstance();
+			HttpSession session = request.getSession();
+			
+			CartBean cart = (CartBean) session.getAttribute("cart");
+			
+			
+			
+			brain.doConfirm(cart);
+			
+			//redirect the user to their account
+			//response.sendRedirect("Account");
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

@@ -68,8 +68,9 @@
 						<tr style="padding: 6px;"><td> Name: ${b.name} </td></tr>
 						<tr style="padding: 6px;"><td> Product number: ${b.number}</td></tr>
 						<tr style="padding: 6px;"><td> Price: ${b.price}</td></tr>
-						<tr style="padding: 6px;"><td> Catalog ID: ${b.catid}</td></tr><br/>				
+						<!-- <tr style="padding: 6px;"><td> Catalog ID: ${b.catid}</td></tr> -->				
 					</table>
+					
 					
 					<form action="Cart" method="POST">
 						<input type="hidden" name="name" value="${b.name}"></input>
@@ -81,11 +82,9 @@
 						
 						<button>Add to cart</button>
 						
-					</form>
+					</form><br/>
 				</c:forEach>
 				
-			
-			
 		</c:if>
 		
 		<c:if test="${!empty error}">

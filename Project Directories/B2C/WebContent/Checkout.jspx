@@ -55,7 +55,7 @@
 		
 		<div style="text-align:center">
 		<form>
-        	<input type="button" value="Confirm Order"/>
+        	<input type="button" value="Confirm Order" onclick="location=&quot;Confirm&quot;"/>
         	
         	<input type="button" value="Continue Shopping" onclick="location=&quot;Browse?name=&amp;search=1&amp;sortBy=NAME&amp;catID=NONE&quot;"/>
         	

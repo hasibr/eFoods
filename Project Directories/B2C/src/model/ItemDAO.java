@@ -16,66 +16,8 @@ public class ItemDAO{
 //	public static final String DB_URL = "jdbc:derby://red.eecs.yorku.ca:64413/EECS;user=student;password=secret";
 
 	
-//	private List<ItemBean> beans;
-	
 	public ItemDAO(){ }
 	
-	/**
-	 * 
-	 * @return a list of all the food items in the database
-	 * @throws Exception 
-	 */
-//	public List<ItemBean> retrieve() throws Exception {
-//		
-//		try {
-//			List<ItemBean> beans = new ArrayList<ItemBean>();
-//			
-//			Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
-//			Connection con = DriverManager.getConnection(DB_URL);
-//			Statement s = con.createStatement();
-//			s.executeUpdate("set schema roumani");
-//			
-//			String query = "SELECT * FROM ITEM ORDER BY NAME ASC";
-//			
-//			
-//			ResultSet r = s.executeQuery(query);
-//			
-//			ItemBean bean;
-//			
-//			while(r.next()) {
-//				
-//				String number = r.getString("NUMBER"),
-//						name = r.getString("NAME"),
-//						price = r.getString("PRICE"),
-//						qty = 1+"",//r.getString("QTY"),
-////						onorder = r.getString("ONORDER"),
-////						reorder = r.getString("REORDER"),
-//						catid = r.getString("CATID");
-////						supid = r.getString("SUPID"),
-////						costprice = r.getString("COSTPRICE");
-//				
-//				bean = new ItemBean(number, name, price, qty, catid);
-//				beans.add(bean);
-//				
-//			}
-//			r.close(); s.close(); con.close();
-//			
-//			return beans;
-//							
-//		}
-//		catch(ClassNotFoundException cnfe) {
-//			cnfe.printStackTrace();
-//			throw new Exception("Could not initialize derby. Please try again later");
-//		}
-//		catch(SQLException sqle) {
-//			sqle.printStackTrace();
-//			throw new Exception("Database encounterd an error. Please Try again later.");
-//		}
-//		catch(Exception e) {
-//			e.printStackTrace();
-//			throw new Exception("We're having difficulties right now. Please try again later");
-//		}
-//	}
 	
 	/**
 	 * 
@@ -131,14 +73,14 @@ public class ItemDAO{
 				String number = r.getString("NUMBER"),
 						name = r.getString("NAME"),
 						price = String.format("$%.2f", Double.parseDouble(r.getString("PRICE"))),
-						qty = 1+"",//r.getString("QTY"),
+						qty = 1+"";//r.getString("QTY"),
 //						onorder = r.getString("ONORDER"),
 //						reorder = r.getString("REORDER"),
-						catid = r.getString("CATID");
+//						catid = r.getString("CATID");
 //						supid = r.getString("SUPID"),
 //						costprice = r.getString("COSTPRICE");
 				
-				bean = new ItemBean(number, name, price, qty, catid);
+				bean = new ItemBean(number, name, price, qty);//, catid);
 				beans.add(bean);
 				
 			}
@@ -167,22 +109,5 @@ public class ItemDAO{
 		
 		
 	}
-	
-	
-//	private static void log(String s) {
-//		System.out.println(s);
-//	}
-//	
-//	
-//	public static void main(String[] args) throws Exception {
-//		
-////		ItemDAO i = new ItemDAO();
-//		
-//		String a = "Deli Meat";
-//		String b = " ";
-//		
-//		log ((b.trim().isEmpty())+"");
-//		
-//	}
 
 }

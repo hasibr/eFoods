@@ -1,5 +1,7 @@
 package model;
 
+import java.io.File;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -7,9 +9,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+
 import beans.CartBean;
 import beans.CategoryBean;
 import beans.ItemBean;
+import beans.POBean;
 
 public class Engine {
 	
@@ -99,9 +106,30 @@ public class Engine {
 	}
 	
 	
-	public void doConfirm() {
+	public void doConfirm(CartBean cart) throws Exception {
 		
+		POBean po = new POBean();
 		
+		po.setItems(cart.getItems());
+		po.setTotal(cart.getSubTotal());
+		po.setShipping(cart.getShipping());
+		po.setHST(cart.getTax());
+		po.setGrandTotal(cart.getTotal());
+		
+		String filePath = "POs/PO.xml";
+		File f = new File(filePath);
+		PrintStream out = new PrintStream(f);
+		try {
+			JAXBContext context = JAXBContext.newInstance(POBean.class);
+			Marshaller m = context.createMarshaller();
+			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+			m.marshal(po, out);
+		}
+		catch(JAXBException jbe) {
+			jbe.printStackTrace();
+			throw new Exception("JAXBE exception thrown. Couldn't generate PO");
+		}
+			
 	}
 	
 	

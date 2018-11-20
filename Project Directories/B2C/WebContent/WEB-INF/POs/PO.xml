@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<order>
+    <grandTotal>$529.86</grandTotal>
+    <HST>$60.96</HST>
+    <items>
+        <entry>
+            <key>1409S253</key>
+            <value>
+                <name>Brownie Ice Cream with Strawberry by SH</name>
+                <number>1409S253</number>
+                <price>$4.30</price>
+                <qty>3</qty>
+            </value>
+        </entry>
+        <entry>
+            <key>2910h536</key>
+            <value>
+                <name>A2 Wheat Cereal</name>
+                <number>2910h536</number>
+                <price>$4.56</price>
+                <qty>100</qty>
+            </value>
+        </entry>
+    </items>
+    <shipping>$0.00</shipping>
+    <total>$468.90</total>
+</order>
