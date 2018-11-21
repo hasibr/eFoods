@@ -17,6 +17,7 @@ import beans.CartBean;
 import beans.CategoryBean;
 import beans.ItemBean;
 import beans.POBean;
+import beans.PersonBean;
 
 public class Engine {
 	
@@ -106,7 +107,7 @@ public class Engine {
 	}
 	
 	
-	public void doConfirm(CartBean cart) throws Exception {
+	public CartBean doConfirm(CartBean cart) throws Exception {
 		
 		POBean po = new POBean();
 		
@@ -129,7 +130,19 @@ public class Engine {
 			jbe.printStackTrace();
 			throw new Exception("JAXBE exception thrown. Couldn't generate PO");
 		}
-			
+		
+		return emptyCart(cart);
+	}
+	
+	public PersonBean doAccount(String user, String name, String hash) {
+		
+		PersonBean p = new PersonBean();
+		p.setUsername(user);
+		p.setName(name);
+		p.setHash(hash);
+		
+		
+		return p;
 	}
 	
 	

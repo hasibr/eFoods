@@ -29,26 +29,25 @@ public class OAuth extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
 		String user = request.getParameter("user");
 		String name = request.getParameter("name");
 		String hash = request.getParameter("hash");
-
+		
+		if(user == null) {
+			
+			request.getSession().setAttribute("back", request.getParameter("back"));
+			
+			String here = request.getRequestURL().toString().trim();
+			response.sendRedirect(EECS_AUTH + here);
+		}
+		
 		if (user != null) {
-			Writer out = response.getWriter();
-			response.setContentType("text/json");
-			response.setHeader("Access-Control-Allow-Origin", "*");
-			// response.setContentType("text/html");
-			String jsonReply = String.format(
-					"{\"status\": true, \"data\": { \"user\": \"%s\", \"name\": \"%s\", \"hash\": \"%s\" } }", user,
-					name, hash);
-			// String html = String.format("<html><body><p>%s</p></body></html>", reply);
-			// out.write(html);
-			out.write(jsonReply);
-
-		} else {
-			this.getServletContext().getRequestDispatcher("/OAuth.html").forward(request, response);
+			
+			String back = (String) request.getSession().getAttribute("back");
+			response.sendRedirect(back+"?user="+user+"&name="+name+"&hash="+hash);
 		}
 
 	}
@@ -57,10 +56,9 @@ public class OAuth extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String url = request.getRequestURL().toString().trim();
-		response.sendRedirect(EECS_AUTH + url);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		doGet(request, response);
 	}
 
 }

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import beans.CartBean;
+import beans.PersonBean;
 import model.Engine;
 
 /**
@@ -39,8 +40,18 @@ public class Confirm extends HttpServlet {
 			CartBean cart = (CartBean) session.getAttribute("cart");
 			
 			
+			//client has not logged in yet. send them to authentication server
+			if(session.getAttribute("person") == null) {
+				
+				response.sendRedirect("Account");
+//				response.sendRedirect("Account?from=Checkout");
+				return;
+			}
 			
-			brain.doConfirm(cart);
+			
+			
+			cart = brain.doConfirm(cart);
+			session.setAttribute("cart", cart);
 			
 			//redirect the user to their account
 			response.sendRedirect("Account");

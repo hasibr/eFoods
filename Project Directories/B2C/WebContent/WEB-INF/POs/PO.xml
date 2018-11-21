@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <order>
-    <grandTotal>$10.15</grandTotal>
-    <HST>$0.59</HST>
+    <grandTotal>$14.53</grandTotal>
+    <HST>$1.10</HST>
     <items>
         <entry>
             <key>2910h536</key>
@@ -12,7 +12,16 @@
                 <qty>1</qty>
             </value>
         </entry>
+        <entry>
+            <key>0905A456</key>
+            <value>
+                <name>Crown Fillet Meat by TH</name>
+                <number>0905A456</number>
+                <price>$3.87</price>
+                <qty>1</qty>
+            </value>
+        </entry>
     </items>
     <shipping>$5.00</shipping>
-    <total>$4.56</total>
+    <total>$8.43</total>
 </order>

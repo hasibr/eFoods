@@ -17,7 +17,34 @@
 </head>
 	<body>
 		<a href="Dash">Back to dashboard</a>
+		
+		<c:if test="${!empty person}">
+			<div style="text-align:right">
+			<form>
+        		<input type="button" value="Logout" 
+        		onclick="location=&quot;Account?logout=true&quot;"/>
+        	</form>	
+			</div>
+		</c:if>
+		
 		<h2 style="color:blue;">My Account</h2>
+		
+		
+		
+		<c:if test="${!empty person}">				
+			<div style="text-align:center">
+				<h4>welcome ${person.username}</h4>
+			</div>
+		</c:if>
+		
+		<c:if test="${empty person}">
+			<div style="text-align:center">
+			<form>
+        		<input type="button" value="Login" onclick="location=&quot;http://localhost:4413/Auth/OAuth.do?back=${back}&quot;"/>
+        	
+        	</form>
+        	</div>
+		</c:if>
 		
 		
 		<c:if test="${!empty error}">
