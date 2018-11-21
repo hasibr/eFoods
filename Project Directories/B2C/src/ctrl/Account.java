@@ -30,8 +30,7 @@ public class Account extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//----------------------------------------------------------------------
-		request.setAttribute("back", request.getRequestURL().toString());
+		//---------------------------------------------------------------------
 		HttpSession session = request.getSession();
 		//----------------------------------------------------------------------
 		
@@ -42,33 +41,31 @@ public class Account extends HttpServlet {
 			return;
 		}
 		
+		// log in button was pressed. redirect to Auth server
+		if(request.getParameter("login")!=null) {
+			String l = "http://localhost:4413/Auth/OAuth.do?back="+request.getRequestURL().toString();
+			response.sendRedirect(l);
+			return;
+		}
+		
+		
+		/*
+		 * if the Auth server redirects the client back, they have 
+		 * authenticated. create a person object and store it in the
+		 * session
+		 */
 		String user = request.getParameter("user");
 		String name = request.getParameter("name");
 		String hash = request.getParameter("hash");
-		
-		String from = request.getParameter("from");
-		
 		try {
 			Engine brain = Engine.getInstance();
 			PersonBean person = brain.doAccount(user, name, hash);
 			
-			//log the user in
+			 
 			if(user != null && session.getAttribute("person") == null) {
-							
+				//The user is now logged in
 				session.setAttribute("person", person);
 			}
-			
-			/*
-			 * if the user was sent from Checkout page to log in,
-			 * send them back to the Checkout page after they have
-			 * authenticated.
-			 */
-//			if(from != null && from.equals("Checkout")) {
-////				session.setAttribute("person", person);
-//				System.out.println(person.toString());
-//				response.sendRedirect(from);
-//				return;
-//			}
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -77,8 +74,6 @@ public class Account extends HttpServlet {
 		
 		
 		request.setAttribute("person", (PersonBean) session.getAttribute("person"));
-		
-		
 		request.getServletContext().getRequestDispatcher("/Account.jspx").forward(request, response);
 	}
 

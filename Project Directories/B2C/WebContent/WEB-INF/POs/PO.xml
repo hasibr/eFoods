@@ -1,27 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <order>
-    <grandTotal>$14.53</grandTotal>
-    <HST>$1.10</HST>
+    <grandTotal>$89.75</grandTotal>
+    <HST>$9.75</HST>
     <items>
         <entry>
-            <key>2910h536</key>
+            <key>2002H891</key>
             <value>
-                <name>A2 Wheat Cereal</name>
-                <number>2910h536</number>
-                <price>$4.56</price>
-                <qty>1</qty>
-            </value>
-        </entry>
-        <entry>
-            <key>0905A456</key>
-            <value>
-                <name>Crown Fillet Meat by TH</name>
-                <number>0905A456</number>
-                <price>$3.87</price>
-                <qty>1</qty>
+                <name>Gouda Cheese by PR</name>
+                <number>2002H891</number>
+                <price>$6.25</price>
+                <qty>12</qty>
             </value>
         </entry>
     </items>
     <shipping>$5.00</shipping>
-    <total>$8.43</total>
+    <total>$75.00</total>
 </order>

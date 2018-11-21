@@ -39,9 +39,8 @@
 		
 		<c:if test="${empty person}">
 			<div style="text-align:center">
-			<form>
-        		<input type="button" value="Login" onclick="location=&quot;http://localhost:4413/Auth/OAuth.do?back=${back}&quot;"/>
-        	
+			<form action="Account" method="POST">
+        		<input type="submit" name="login" value="Login with EECS"/>
         	</form>
         	</div>
 		</c:if>

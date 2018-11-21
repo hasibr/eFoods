@@ -40,15 +40,36 @@ public class Confirm extends HttpServlet {
 			CartBean cart = (CartBean) session.getAttribute("cart");
 			
 			
-			//client has not logged in yet. send them to authentication server
-			if(session.getAttribute("person") == null) {
-				
-				response.sendRedirect("Account");
-//				response.sendRedirect("Account?from=Checkout");
-				return;
+			/*
+			 * if the Auth server redirects the client back, they have 
+			 * authenticated. create a person object and store it in the
+			 * session
+			 */
+			String user = request.getParameter("user");
+			String name = request.getParameter("name");
+			String hash = request.getParameter("hash");
+
+			
+			if(user != null && session.getAttribute("person") == null) {
+				//The user is now logged in
+				PersonBean person = brain.doAccount(user, name, hash);
+				session.setAttribute("person", person);
 			}
 			
 			
+			//client has not logged in yet. send them to authentication server
+			if(session.getAttribute("person") == null) {
+				
+//				response.sendRedirect("Account");
+//				return;
+				
+				
+				String l = "http://localhost:4413/Auth/OAuth.do?back="+request.getRequestURL().toString();
+				response.sendRedirect(l);
+				return;
+			}
+				
+							
 			
 			cart = brain.doConfirm(cart);
 			session.setAttribute("cart", cart);
