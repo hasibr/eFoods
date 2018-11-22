@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import beans.PersonBean;
+import beans.Customer;
 import model.Engine;
 
 /**
@@ -59,7 +59,7 @@ public class Account extends HttpServlet {
 		String hash = request.getParameter("hash");
 		try {
 			Engine brain = Engine.getInstance();
-			PersonBean person = brain.doAccount(user, name, hash);
+			Customer person = brain.createPerson(user, name, hash);
 			
 			 
 			if(user != null && session.getAttribute("person") == null) {
@@ -73,7 +73,7 @@ public class Account extends HttpServlet {
 		}
 		
 		
-		request.setAttribute("person", (PersonBean) session.getAttribute("person"));
+		request.setAttribute("person", (Customer) session.getAttribute("person"));
 		request.getServletContext().getRequestDispatcher("/Account.jspx").forward(request, response);
 	}
 

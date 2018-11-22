@@ -1,5 +1,12 @@
 package beans;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 /**
  * 
  * @author francis okoyo
@@ -9,7 +16,10 @@ package beans;
  * Instantiation, automatically calculates it's total price.
  *
  */
-public class ItemBean{
+@XmlRootElement(name = "item")
+@XmlType(propOrder = {"number","name","price","qty","totalPrice"})
+@XmlAccessorType (XmlAccessType.PUBLIC_MEMBER)
+public class Item{
 	
 	private String number, // product number / product id / ID. the Engine refers to this as "ItemID"
 					name,
@@ -19,7 +29,11 @@ public class ItemBean{
 					//catid;  // catalog id
 	
 	
-	public ItemBean(String number, String name, String price, String qty)
+	public Item() {
+		/**/
+	}
+	
+	public Item(String number, String name, String price, String qty)
 	{
 		super();
 		this.number = number;
@@ -33,7 +47,7 @@ public class ItemBean{
 	
 	
 
-//	public ItemBean(String number, String name, String price, String qty, String catid)
+//	public Item(String number, String name, String price, String qty, String catid)
 //{
 //	super();
 //	this.number = number;
@@ -55,7 +69,8 @@ public class ItemBean{
 		return String.format("$%.2f", tot);
 		
 	}
-
+	
+	@XmlAttribute
 	public String getNumber()
 	{
 		return number;
@@ -114,7 +129,7 @@ public class ItemBean{
 
 
 
-
+	@XmlElement(name = "quantity")
 	public String getQty()
 	{
 		return qty;
@@ -144,7 +159,7 @@ public class ItemBean{
 
 
 
-
+	@XmlElement(name = "extended")
 	public String getTotalPrice()
 	{
 		return totalPrice;

@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import beans.CategoryBean;
+import beans.Category;
 
 /**
  * 
@@ -24,11 +24,11 @@ public class CategoryDAO{
 //	public static final String DB_URL = "jdbc:derby://red.eecs.yorku.ca:64413/EECS;user=student;password=secret";
 
 	
-	private List<CategoryBean> beans;
+	private List<Category> beans;
 	
 	public CategoryDAO() throws Exception {
 		
-		beans = new ArrayList<CategoryBean>();
+		beans = new ArrayList<Category>();
 		
 		try {
 			Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
@@ -41,11 +41,11 @@ public class CategoryDAO{
 			
 			ResultSet r = s.executeQuery(query);
 			
-			CategoryBean bean;
+			Category bean;
 			
 			while(r.next()) {
 				
-				bean = new CategoryBean(r.getString("NAME"), r.getString("DESCRIPTION"), r.getString("ID"));
+				bean = new Category(r.getString("NAME"), r.getString("DESCRIPTION"), r.getString("ID"));
 				beans.add(bean);
 				
 			}
@@ -67,7 +67,7 @@ public class CategoryDAO{
 		
 	}
 	
-	public List<CategoryBean> retrieve() {
+	public List<Category> retrieve() {
 		
 		return this.beans;
 	}

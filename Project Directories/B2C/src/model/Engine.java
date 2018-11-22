@@ -13,11 +13,11 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
-import beans.CartBean;
-import beans.CategoryBean;
-import beans.ItemBean;
-import beans.POBean;
-import beans.PersonBean;
+import beans.ShoppingCart;
+import beans.Category;
+import beans.Item;
+import beans.PO;
+import beans.Customer;
 
 public class Engine {
 	
@@ -55,7 +55,7 @@ public class Engine {
 	 * @return a list containing category beans. These beans contain the names, id's and
 	 * descriptions of all the different categories offered by Foods R Us.
 	 */
-	public List<CategoryBean> doCategory(){
+	public List<Category> doCategory(){
 		
 		return catDAO.retrieve();
 	}
@@ -69,14 +69,14 @@ public class Engine {
 	 * @return list containing all the food items in the database that meet the requirements 
 	 * @throws Exception
 	 */
-	public List<ItemBean> doBrowse(String name, String sortBy, String catID) throws Exception{
+	public List<Item> doBrowse(String name, String sortBy, String catID) throws Exception{
 		
 		return itemDAO.retrieve(name, sortBy, catID);
 	}
 	
 	
 	
-	public CartBean doCart(ItemBean item, CartBean cart, String add,
+	public ShoppingCart doCart(Item item, ShoppingCart cart, String add,
 			String update, String cancel, Map<String, String[]> parameters) {
 		
 		
@@ -101,17 +101,17 @@ public class Engine {
 	}
 	
 	
-	public CartBean doCheckout(CartBean cart) {
+	public ShoppingCart doCheckout(ShoppingCart cart) {
 		
 		return cart;
 	}
 	
 	
-	public CartBean doConfirm(CartBean cart) throws Exception {
+	public ShoppingCart doConfirm(ShoppingCart cart) throws Exception {
 		
-		POBean po = new POBean();
+		PO po = new PO();
 		
-		po.setItems(cart.getItems());
+		po.setItems(cart.getItemsObject());
 		po.setTotal(cart.getSubTotal());
 		po.setShipping(cart.getShipping());
 		po.setHST(cart.getTax());
@@ -121,7 +121,7 @@ public class Engine {
 		File f = new File(filePath);
 		PrintStream out = new PrintStream(f);
 		try {
-			JAXBContext context = JAXBContext.newInstance(POBean.class);
+			JAXBContext context = JAXBContext.newInstance(PO.class);
 			Marshaller m = context.createMarshaller();
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 			m.marshal(po, out);
@@ -134,9 +134,9 @@ public class Engine {
 		return emptyCart(cart);
 	}
 	
-	public PersonBean doAccount(String user, String name, String hash) {
+	public Customer createPerson(String user, String name, String hash) {
 		
-		PersonBean p = new PersonBean();
+		Customer p = new Customer();
 		p.setUsername(user);
 		p.setName(name);
 		p.setHash(hash);
@@ -156,7 +156,7 @@ public class Engine {
 	 * @param item item they are adding
 	 * @return cart with the added item(s)
 	 */
-	private CartBean addToCart(CartBean cart, ItemBean item) {
+	private ShoppingCart addToCart(ShoppingCart cart, Item item) {
 		
 		String itemID = item.getNumber(); //"itemID" (unique product number) of the specific item.
 		int orderQty = Integer.parseInt(item.getQty()); // quantity the client wants to order
@@ -167,7 +167,7 @@ public class Engine {
 		 * the bean has a quantity attribute that changes depending on of the client adds or removes that
 		 * same item. the total price attribute changes automatically.
 		 */
-		HashMap<String,ItemBean> itemsInCart = cart.getItems();
+		HashMap<String,Item> itemsInCart = cart.getItems();
 		
 		
 		/*
@@ -190,7 +190,7 @@ public class Engine {
 		else {
 			
 			// get the instance of the itme that is already in the cart
-			ItemBean b = itemsInCart.get(itemID);
+			Item b = itemsInCart.get(itemID);
 			
 			// adds the qty the client wants with the qty already in the cart
 			int newQty = orderQty + Integer.parseInt(b.getQty());
@@ -219,7 +219,7 @@ public class Engine {
 	 * @param parameters
 	 * @return
 	 */
-	private CartBean updateCart(CartBean cart, Map<String, String[]> parameters) {
+	private ShoppingCart updateCart(ShoppingCart cart, Map<String, String[]> parameters) {
 		
 		
 		if(cart.getItems().isEmpty()) {
@@ -240,7 +240,7 @@ public class Engine {
 		}
 		//-------------------------------------------------------------
 		
-		HashMap<String, ItemBean> items = cart.getItems();
+		HashMap<String, Item> items = cart.getItems();
 		
 		
 		/*
@@ -277,9 +277,9 @@ public class Engine {
 	 * @param cart
 	 * @return
 	 */
-	private CartBean emptyCart(CartBean cart) {
+	private ShoppingCart emptyCart(ShoppingCart cart) {
 		
-		cart.setItems(new HashMap<String,ItemBean>());
+		cart.setItems(new HashMap<String,Item>());
 		
 		return cart;
 	}

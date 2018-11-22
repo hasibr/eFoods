@@ -1,6 +1,6 @@
 package beans;
 
-public class PersonBean
+public class Customer
 {
 	String username;
 	String name;
@@ -36,7 +36,7 @@ public class PersonBean
 	@Override
 	public String toString()
 	{
-		return "PersonBean [username=" + username + ", name=" + name + ", hash=" + hash + "]";
+		return "Customer [username=" + username + ", name=" + name + ", hash=" + hash + "]";
 	}
 	
 	

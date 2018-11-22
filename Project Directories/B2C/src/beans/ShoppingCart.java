@@ -1,5 +1,6 @@
 package beans;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -19,34 +20,38 @@ import java.util.HashMap;
  * it's total price automatically.
  *
  */
-public class CartBean
+public class ShoppingCart
 {
-	HashMap<String,ItemBean> items;
+	HashMap<String,Item> items;
 	
 	String subTotal;
 	String tax;
 	String shipping;
 	String total;
+	
+	public ShoppingCart() {
+		/**/
+	}
 
-	public CartBean(HashMap<String,ItemBean> items, String subTotal)
+	public ShoppingCart(HashMap<String,Item> items, String subTotal)
 	{
 		super();
 		this.items = items;
 		this.subTotal = subTotal;
 	}
 
-	public HashMap<String, ItemBean> getItems()
+	public HashMap<String, Item> getItems()
 	{
 		return items;
 	}
 	
 	
-	public void setItems(HashMap<String, ItemBean> items)
+	public void setItems(HashMap<String, Item> items)
 	{
 		this.items = items;
 		
 		double tot = 0.00;
-		for(ItemBean item: items.values()) {
+		for(Item item: items.values()) {
 			
 			// sum up the total prices of all the items.
 			tot += Double.parseDouble(item.getTotalPrice().replace("$", ""));
@@ -116,6 +121,21 @@ public class CartBean
 		
 		
 		this.total = String.format("$%.2f", d);
+	}
+	
+	
+	public Items getItemsObject(){
+		
+		ArrayList<Item> l = new ArrayList<>();
+		
+		for(String s : this.items.keySet()) {
+			l.add(this.items.get(s));
+		}
+		
+		Items i = new Items();
+		i.setItm(l);
+		
+		return i;
 	}
 	
 }

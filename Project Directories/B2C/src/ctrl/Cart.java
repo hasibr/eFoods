@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import beans.CartBean;
-import beans.ItemBean;
+import beans.ShoppingCart;
+import beans.Item;
 import model.Engine;
 
 /**
@@ -42,12 +42,12 @@ public class Cart extends HttpServlet {
 			
 			
 			// if the client doesn't have a cart (first visit), make one.
-			CartBean cart;
+			ShoppingCart cart;
 			if(session.getAttribute("cart") == null) {
-				cart = new CartBean(new HashMap<String,ItemBean>(), "$0.00");
+				cart = new ShoppingCart(new HashMap<String,Item>(), "$0.00");
 				session.setAttribute("cart", cart);
 			}else {
-				cart = (CartBean) session.getAttribute("cart");
+				cart = (ShoppingCart) session.getAttribute("cart");
 			}
 			
 			
@@ -70,9 +70,9 @@ public class Cart extends HttpServlet {
 				qty = "0";
 			}
 			
-			ItemBean item = new ItemBean(id, name, price, qty);
+			Item item = new Item(id, name, price, qty);
 			
-			CartBean result = brain.doCart(item, cart, add, update, cancel, parameters);
+			ShoppingCart result = brain.doCart(item, cart, add, update, cancel, parameters);
 			request.setAttribute("cart", result);
 		
 		}

@@ -1,6 +1,5 @@
 package beans;
 
-import java.io.File;
 
 /**
  * 
@@ -10,14 +9,17 @@ import java.io.File;
  *
  * represents a category. nothing special here.
  */
-public class CategoryBean{
+public class Category{
 	
 	private String name;
 	private String description;
-//	private File PICTURE;
 	private String id;
 	
-	public CategoryBean(String name, String desc, String id) {
+	public Category() {
+		/**/
+	}
+	
+	public Category(String name, String desc, String id) {
 		
 		this.name = name;
 		this.description = desc;

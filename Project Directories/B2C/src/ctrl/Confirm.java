@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import beans.CartBean;
-import beans.PersonBean;
+import beans.ShoppingCart;
+import beans.Customer;
 import model.Engine;
 
 /**
@@ -37,7 +37,7 @@ public class Confirm extends HttpServlet {
 			Engine brain = Engine.getInstance();
 			HttpSession session = request.getSession();
 			
-			CartBean cart = (CartBean) session.getAttribute("cart");
+			ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
 			
 			
 			/*
@@ -52,17 +52,13 @@ public class Confirm extends HttpServlet {
 			
 			if(user != null && session.getAttribute("person") == null) {
 				//The user is now logged in
-				PersonBean person = brain.doAccount(user, name, hash);
+				Customer person = brain.createPerson(user, name, hash);
 				session.setAttribute("person", person);
 			}
 			
 			
 			//client has not logged in yet. send them to authentication server
 			if(session.getAttribute("person") == null) {
-				
-//				response.sendRedirect("Account");
-//				return;
-				
 				
 				String l = "http://localhost:4413/Auth/OAuth.do?back="+request.getRequestURL().toString();
 				response.sendRedirect(l);

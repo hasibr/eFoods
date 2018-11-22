@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import beans.ItemBean;
+import beans.Item;
 
 public class ItemDAO{
 	
@@ -26,10 +26,10 @@ public class ItemDAO{
 	 * based on the category given
 	 * @throws Exception 
 	 */
-	public List<ItemBean> retrieve(String foodName, String sortBy, String catID) throws Exception{
+	public List<Item> retrieve(String foodName, String sortBy, String catID) throws Exception{
 		
 		try {
-			List<ItemBean> beans = new ArrayList<ItemBean>();
+			List<Item> beans = new ArrayList<Item>();
 			
 			Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
 			Connection con = DriverManager.getConnection(DB_URL);
@@ -66,7 +66,7 @@ public class ItemDAO{
 			
 			ResultSet r = s.executeQuery(query);
 			
-			ItemBean bean;
+			Item bean;
 			
 			while(r.next()) {
 				
@@ -80,7 +80,7 @@ public class ItemDAO{
 //						supid = r.getString("SUPID"),
 //						costprice = r.getString("COSTPRICE");
 				
-				bean = new ItemBean(number, name, price, qty);//, catid);
+				bean = new Item(number, name, price, qty);//, catid);
 				beans.add(bean);
 				
 			}

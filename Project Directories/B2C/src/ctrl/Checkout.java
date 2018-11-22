@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import beans.CartBean;
+import beans.ShoppingCart;
 import model.Engine;
 
 /**
@@ -33,7 +33,7 @@ public class Checkout extends HttpServlet {
 		
 			
 		HttpSession session = request.getSession();
-		CartBean cart = (CartBean) session.getAttribute("cart");
+		ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
 		
 		/*
 		 * the cart is empty so there's no reason to show the checkout page
