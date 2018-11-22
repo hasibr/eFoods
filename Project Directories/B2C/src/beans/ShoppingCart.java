@@ -58,7 +58,7 @@ public class ShoppingCart
 			
 		}
 		
-		setSubTotal(String.format("$%.2f", tot));
+		setSubTotal(String.format("%.2f", tot));
 		setTax(tot + "");
 		setShipping(tot + "");
 		setTotal();
@@ -85,7 +85,7 @@ public class ShoppingCart
 	private void setTax(String subTotal)
 	{
 		double hst = Double.parseDouble(subTotal) * 0.13;
-		this.tax = String.format("$%.2f", hst);
+		this.tax = String.format("%.2f", hst);
 	}
 
 	public String getShipping()
@@ -98,10 +98,10 @@ public class ShoppingCart
 		double sTot = Double.parseDouble(subTotal);
 		
 		if(sTot <= 0.00 || sTot >= 100.0) {
-			this.shipping = "$0.00";
+			this.shipping = "0.00";
 		}
 		else {
-			this.shipping = "$5.00";
+			this.shipping = "5.00";
 		}
 		
 	}
@@ -113,14 +113,14 @@ public class ShoppingCart
 
 	private void setTotal()
 	{
-		double a = Double.parseDouble(getSubTotal().replace("$", ""));
-		double b = Double.parseDouble(getShipping().replace("$", ""));
-		double c = Double.parseDouble(getTax().replace("$", ""));
+		double a = Double.parseDouble(getSubTotal());
+		double b = Double.parseDouble(getShipping());
+		double c = Double.parseDouble(getTax());
 		
 		double d = a + b + c;
 		
 		
-		this.total = String.format("$%.2f", d);
+		this.total = String.format("%.2f", d);
 	}
 	
 	

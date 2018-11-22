@@ -1,21 +1,48 @@
 package beans;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+@XmlRootElement(name = "customer")
+@XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 public class Customer
 {
-	String username;
-	String name;
-	String hash;
+	private String account;
+	private String name;
+	private String hash;
 	
 	
-	
-	public String getUsername()
-	{
-		return username;
+	public Customer() {
+		
 	}
-	public void setUsername(String username)
+	
+	
+	
+	public Customer(String account, String name, String hash)
 	{
-		this.username = username;
+		super();
+		this.account = account;
+		this.name = name;
+		this.hash = hash;
 	}
+
+
+
+	@XmlAttribute(name = "account")
+	public String getAccount()
+	{
+		return account;
+	}
+	public void setAccount(String account)
+	{
+		this.account = account;
+	}
+	
+	@XmlElement
 	public String getName()
 	{
 		return name;
@@ -24,6 +51,8 @@ public class Customer
 	{
 		this.name = name;
 	}
+	
+	@XmlTransient
 	public String getHash()
 	{
 		return hash;
@@ -36,7 +65,7 @@ public class Customer
 	@Override
 	public String toString()
 	{
-		return "Customer [username=" + username + ", name=" + name + ", hash=" + hash + "]";
+		return "Customer [account=" + account + ", name=" + name + ", hash=" + hash + "]";
 	}
 	
 	

@@ -1,17 +1,15 @@
 package model;
 
 import java.io.File;
-import java.io.PrintStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 
 import beans.ShoppingCart;
 import beans.Category;
@@ -107,7 +105,8 @@ public class Engine {
 	}
 	
 	
-	public ShoppingCart doConfirm(ShoppingCart cart) throws Exception {
+	public ShoppingCart doConfirm(ShoppingCart cart, Customer customer) throws Exception {
+		PODAO poDao = new PODAO();
 		
 		PO po = new PO();
 		
@@ -117,27 +116,43 @@ public class Engine {
 		po.setHST(cart.getTax());
 		po.setGrandTotal(cart.getTotal());
 		
-		String filePath = "POs/PO.xml";
-		File f = new File(filePath);
-		PrintStream out = new PrintStream(f);
-		try {
-			JAXBContext context = JAXBContext.newInstance(PO.class);
-			Marshaller m = context.createMarshaller();
-			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-			m.marshal(po, out);
-		}
-		catch(JAXBException jbe) {
-			jbe.printStackTrace();
-			throw new Exception("JAXBE exception thrown. Couldn't generate PO");
-		}
+		Customer cus = new Customer();
+		
+		cus.setAccount(customer.getAccount());
+		cus.setName(customer.getName());
+		cus.setHash(customer.getHash());
+		
+		po.setCustomer(cus);
+		
+		Date date = Calendar.getInstance().getTime();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		String d = df.format(date);
+		
+		po.setId((1 + poDao.rootFileCount())+"");
+		po.setSubmitted(d);
+		
+		String fn = cus.getAccount();
+		int fc = poDao.filesWithName(fn) + 1;
+		
+		String filename = String.format("po_%s%02d.xml", fn, fc);
+		
+		poDao.storeFile(filename, po);
+		
+		System.out.println(retrieveFiles(cus));
 		
 		return emptyCart(cart);
+	}
+	
+	public List<File> retrieveFiles(Customer customer) {
+		
+		PODAO p = new PODAO();
+		return p.files(customer.getAccount());
 	}
 	
 	public Customer createPerson(String user, String name, String hash) {
 		
 		Customer p = new Customer();
-		p.setUsername(user);
+		p.setAccount(user);
 		p.setName(name);
 		p.setHash(hash);
 		

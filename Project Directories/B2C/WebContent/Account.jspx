@@ -33,7 +33,7 @@
 		
 		<c:if test="${!empty person}">				
 			<div style="text-align:center">
-				<h4>welcome ${person.username}</h4>
+				<h4>welcome ${person.account}</h4>
 			</div>
 		</c:if>
 		

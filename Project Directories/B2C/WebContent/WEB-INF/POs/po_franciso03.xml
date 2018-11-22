@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<order id="3" submitted="2018-11-22">
+    <customer account="franciso">
+        <name>Francis Okoyo</name>
+    </customer>
+    <items>
+        <item number="2910h711">
+            <name>Almond Maple Cereal by RC</name>
+            <price>5.73</price>
+            <quantity>1</quantity>
+            <extended>5.73</extended>
+        </item>
+    </items>
+    <total>5.73</total>
+    <shipping>5.00</shipping>
+    <HST>0.74</HST>
+    <grandTotal>11.47</grandTotal>
+</order>

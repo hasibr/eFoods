@@ -66,7 +66,7 @@ public class Cart extends HttpServlet {
 			if(id == null) {
 				name = "N/A";
 				id = "N/A";
-				price = "$0.00";
+				price = "0.00";
 				qty = "0";
 			}
 			

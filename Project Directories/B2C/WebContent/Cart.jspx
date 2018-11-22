@@ -23,7 +23,7 @@
 		<c:if test="${!empty cart}">
 			
 			<form action="Cart" method="POST">
-				<table style="margin:auto;" border="1">
+				<table style="margin:auto;text-align:center;" border="1">
 					<tr>
 						<th>ID</th>
 						<th>Name</th>
@@ -38,9 +38,9 @@
 					<tr>
 						<td>${bean.value.number}</td>
 						<td>${bean.value.name}</td>
-						<td>${bean.value.price}</td>
+						<td>$${bean.value.price}</td>
 						<td><input type="number" min = "0" name="${bean.value.number}" value="${bean.value.qty}" placeholder="qty"/></td>
-						<td>${bean.value.totalPrice}</td>
+						<td>$${bean.value.totalPrice}</td>
 						<td><input type="checkbox" name="delete" value="${bean.value.number}">delete</input></td>
 					</tr>
 					
@@ -62,10 +62,10 @@
 			<div style="text-align:center" >
 				<table style="margin:auto;">
 					<tr><th>Summary</th></tr>
-					<tr><td>Sub Total: ${cart.subTotal}</td></tr>
-					<tr><td>HST: ${cart.tax}		   </td></tr>
-					<tr><td>Shipping: ${cart.shipping} </td></tr>
-					<tr><td>Total: ${cart.total}       </td></tr>
+					<tr><td>Sub Total: $${cart.subTotal}</td></tr>
+					<tr><td>HST: $${cart.tax}		   </td></tr>
+					<tr><td>Shipping: $${cart.shipping} </td></tr>
+					<tr><td>Total: $${cart.total}       </td></tr>
 					
 				</table>
 			</div>

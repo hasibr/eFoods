@@ -105,7 +105,7 @@ public class Item{
 
 	public String getPrice()
 	{
-		return price;
+		return price.replace("$", "");
 	}
 
 
@@ -162,7 +162,7 @@ public class Item{
 	@XmlElement(name = "extended")
 	public String getTotalPrice()
 	{
-		return totalPrice;
+		return totalPrice.replace("$", "");
 	}
 
 

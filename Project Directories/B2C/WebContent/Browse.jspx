@@ -67,7 +67,7 @@
 					<table border="1">
 						<tr style="padding: 6px;"><td> Name: ${b.name} </td></tr>
 						<tr style="padding: 6px;"><td> Product number: ${b.number}</td></tr>
-						<tr style="padding: 6px;"><td> Price: ${b.price}</td></tr>
+						<tr style="padding: 6px;"><td> Price: $${b.price}</td></tr>
 						<!-- <tr style="padding: 6px;"><td> Catalog ID: ${b.catid}</td></tr> -->				
 					</table>
 					

@@ -66,8 +66,8 @@ public class Confirm extends HttpServlet {
 			}
 				
 							
-			
-			cart = brain.doConfirm(cart);
+			Customer cus = (Customer) session.getAttribute("person");
+			cart = brain.doConfirm(cart, cus);
 			session.setAttribute("cart", cart);
 			
 			//redirect the user to their account

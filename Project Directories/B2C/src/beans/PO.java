@@ -3,17 +3,19 @@ package beans;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 @XmlRootElement(name = "order")
-@XmlType(propOrder = {"items", "total", "shipping", "HST", "grandTotal"})
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(propOrder = {"id", "submitted", "customer", "items", "total", "shipping", "HST", "grandTotal"})
+@XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 public class PO {
 	
-	@XmlElement
+	Customer customer;
+	
 	Items items;
 	
 	String total;
@@ -21,15 +23,31 @@ public class PO {
 	String HST;
 	String grandTotal;
 	
-//	String id;
-//	String submitted;
+	String id;
+	String submitted;
+	
+	
+	public PO() {
+		/**/
+	}
 	
 	
 	
+	public Customer getCustomer()
+	{
+		return customer;
+	}
+	public void setCustomer(Customer customer)
+	{
+		this.customer = customer;
+	}
+	
+	@XmlElement
 	public Items getItems()
 	{
 		return items;
 	}
+	
 	public void setItems(Items items)
 	{
 		this.items = items;
@@ -59,22 +77,26 @@ public class PO {
 	public void setGrandTotal(String grandTotal) {
 		this.grandTotal = grandTotal;
 	}
-//	public String getId()
-//	{
-//		return id;
-//	}
-//	public void setId(String id)
-//	{
-//		this.id = id;
-//	}
-//	public String getSubmitted()
-//	{
-//		return submitted;
-//	}
-//	public void setSubmitted(String submitted)
-//	{
-//		this.submitted = submitted;
-//	}
+	
+	@XmlAttribute(name = "id")
+	public String getId()
+	{
+		return id;
+	}
+	public void setId(String id)
+	{
+		this.id = id;
+	}
+	
+	@XmlAttribute(name = "submitted")
+	public String getSubmitted()
+	{
+		return submitted;
+	}
+	public void setSubmitted(String submitted)
+	{
+		this.submitted = submitted;
+	}
 	
 	
 	
