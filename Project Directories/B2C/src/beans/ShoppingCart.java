@@ -31,6 +31,11 @@ public class ShoppingCart
 	
 	public ShoppingCart() {
 		/**/
+		this.items = new HashMap<String,Item>();
+		this.subTotal = "0.00";
+		this.tax = "0.00";
+		this.shipping = "0.00";
+		this.total = "0.00";
 	}
 
 	public ShoppingCart(HashMap<String,Item> items, String subTotal)

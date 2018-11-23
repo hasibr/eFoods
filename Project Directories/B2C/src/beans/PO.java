@@ -97,6 +97,15 @@ public class PO {
 	{
 		this.submitted = submitted;
 	}
+
+
+
+	@Override
+	public String toString()
+	{
+		return "PO [customer=" + customer + ", items=" + items + ", total=" + total + ", shipping=" + shipping
+				+ ", HST=" + HST + ", grandTotal=" + grandTotal + ", id=" + id + ", submitted=" + submitted + "]";
+	}
 	
 	
 	

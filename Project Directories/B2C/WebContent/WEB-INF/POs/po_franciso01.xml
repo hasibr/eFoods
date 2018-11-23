@@ -1,18 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<order id="1" submitted="2018-11-22">
-    <customer account="franciso">
-        <name>Francis Okoyo</name>
-    </customer>
-    <items>
-        <item number="2910h536">
-            <name>A2 Wheat Cereal</name>
-            <price>4.56</price>
-            <quantity>1</quantity>
-            <extended>4.56</extended>
-        </item>
-    </items>
-    <total>4.56</total>
-    <shipping>5.00</shipping>
-    <HST>0.59</HST>
-    <grandTotal>10.15</grandTotal>
-</order>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><order id="1" submitted="2018-11-23"><customer account="franciso"><name>Francis Okoyo</name></customer><items><item number="2910h536"><name>A2 Wheat Cereal</name><price>4.56</price><quantity>1</quantity><extended>4.56</extended></item></items><total>4.56</total><shipping>5.00</shipping><HST>0.59</HST><grandTotal>10.15</grandTotal></order>

@@ -1,6 +1,6 @@
 package model;
 
-import java.io.File;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 
 import beans.ShoppingCart;
 import beans.Category;
@@ -138,17 +139,24 @@ public class Engine {
 		
 		poDao.storeFile(filename, po);
 		
-		System.out.println(retrieveFiles(cus));
 		
 		return emptyCart(cart);
 	}
 	
-	public List<File> retrieveFiles(Customer customer) {
-		
-		PODAO p = new PODAO();
-		return p.files(customer.getAccount());
-	}
 	
+	
+	
+	
+	
+//------------------------- helper methods --------------------------------------------------
+	
+	/**
+	 * create a customer bean and return it.
+	 * @param user
+	 * @param name
+	 * @param hash
+	 * @return
+	 */
 	public Customer createPerson(String user, String name, String hash) {
 		
 		Customer p = new Customer();
@@ -159,10 +167,7 @@ public class Engine {
 		
 		return p;
 	}
-	
-	
-//------------------------- helper methods --------------------------------------------------
-	
+
 	/**
 	 * 
 	 * Takes the cart of the customer and adds an item to it.

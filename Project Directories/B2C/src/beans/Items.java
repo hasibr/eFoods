@@ -28,6 +28,12 @@ public class Items
 		this.itm = itm;
 	}
 
+	@Override
+	public String toString()
+	{
+		return "Items [itm=" + itm + "]";
+	}
+
 	
 	
 	

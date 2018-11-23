@@ -1,7 +1,6 @@
 package ctrl;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -44,7 +43,7 @@ public class Cart extends HttpServlet {
 			// if the client doesn't have a cart (first visit), make one.
 			ShoppingCart cart;
 			if(session.getAttribute("cart") == null) {
-				cart = new ShoppingCart(new HashMap<String,Item>(), "$0.00");
+				cart = new ShoppingCart();
 				session.setAttribute("cart", cart);
 			}else {
 				cart = (ShoppingCart) session.getAttribute("cart");

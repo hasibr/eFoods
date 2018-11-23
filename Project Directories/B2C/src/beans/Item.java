@@ -175,6 +175,13 @@ public class Item{
 		this.totalPrice = totalPrice;
 	}
 
+	@Override
+	public String toString()
+	{
+		return "Item [number=" + number + ", name=" + name + ", price=" + price + ", qty=" + qty + ", totalPrice="
+				+ totalPrice + "]";
+	}
+
 
 //
 //
