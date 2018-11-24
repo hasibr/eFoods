@@ -34,7 +34,7 @@
 		<c:if test="${!empty result}">
 			<h3 style="text-align:center;color:blue;">/-------/Categories/-------/</h3>
 			<!--  <p style="text-align:center"> </p> -->
-			<table style="margin:auto;" border="1">
+			<table style="margin:auto; text-align:center;" border="1">
 				<tr>
 					<th style="padding: 6px;">Name</th>
 					<th style="padding: 6px;">Description</th>

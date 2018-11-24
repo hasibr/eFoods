@@ -13,7 +13,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * 
  * This is an item bean. stores every thing you need to know about an item. on
- * Instantiation, automatically calculates it's total price.
+ * Instantiation and price or quantity mutation, automatically calculates it's 
+ * total price.
  *
  */
 @XmlRootElement(name = "item")
@@ -26,13 +27,18 @@ public class Item{
 					price,
 					qty, // number of the item
 					totalPrice;
-					//catid;  // catalog id
 	
 	
 	public Item() {
 		/**/
 	}
 	
+	/**
+	 * @param number
+	 * @param name
+	 * @param price
+	 * @param qty
+	 */
 	public Item(String number, String name, String price, String qty)
 	{
 		super();
@@ -41,24 +47,14 @@ public class Item{
 		this.price = String.format("$%.2f", Double.parseDouble(price.replace("$", "")));
 		this.qty = qty;
 		this.totalPrice = calcTotPrc(qty, price);
-//		this.catid = "N/A";
 	}
 	
-	
-	
 
-//	public Item(String number, String name, String price, String qty, String catid)
-//{
-//	super();
-//	this.number = number;
-//	this.name = name;
-//	this.price = price;
-//	this.qty = qty;
-//	this.totalPrice = calcTotPrc(qty, price);
-//	this.catid = catid;
-//}
-
-
+	/**
+	 * @param qty
+	 * @param price
+	 * @return
+	 */
 	private String calcTotPrc(String qty, String price) {
 		
 		int q = Integer.parseInt(qty);
@@ -70,6 +66,9 @@ public class Item{
 		
 	}
 	
+	/**
+	 * @return
+	 */
 	@XmlAttribute
 	public String getNumber()
 	{
@@ -79,6 +78,9 @@ public class Item{
 
 
 
+	/**
+	 * @param number
+	 */
 	public void setNumber(String number)
 	{
 		this.number = number;
@@ -87,6 +89,9 @@ public class Item{
 
 
 
+	/**
+	 * @return
+	 */
 	public String getName()
 	{
 		return name;
@@ -95,6 +100,9 @@ public class Item{
 
 
 
+	/**
+	 * @param name
+	 */
 	public void setName(String name)
 	{
 		this.name = name;
@@ -103,6 +111,9 @@ public class Item{
 
 
 
+	/**
+	 * @return
+	 */
 	public String getPrice()
 	{
 		return price.replace("$", "");
@@ -129,6 +140,9 @@ public class Item{
 
 
 
+	/**
+	 * @return
+	 */
 	@XmlElement(name = "quantity")
 	public String getQty()
 	{
@@ -159,6 +173,9 @@ public class Item{
 
 
 
+	/**
+	 * @return
+	 */
 	@XmlElement(name = "extended")
 	public String getTotalPrice()
 	{
@@ -167,7 +184,6 @@ public class Item{
 
 
 	/**
-	 * Assumes you know what the total price is. please use this responsibly
 	 * @param totalPrice
 	 */
 	private void setTotalPrice(String totalPrice)
@@ -175,6 +191,9 @@ public class Item{
 		this.totalPrice = totalPrice;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString()
 	{
@@ -182,26 +201,4 @@ public class Item{
 				+ totalPrice + "]";
 	}
 
-
-//
-//
-//	public String getCatid()
-//	{
-//		return catid;
-//	}
-//
-//
-//
-//
-//	public void setCatid(String catid)
-//	{
-//		this.catid = catid;
-//	}
-//
-//
-
-
-	
-	
-	
 }

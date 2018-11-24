@@ -44,6 +44,7 @@ public class Browse extends HttpServlet {
 				request.setAttribute("sortBy", sortBy);
 				
 				// returns a table with all the items that match the client's description
+				request.setAttribute("categories", brain.doCategory());
 				request.setAttribute("result", brain.doBrowse(name, sortBy, catID));
 			}
 			catch(Exception e) {

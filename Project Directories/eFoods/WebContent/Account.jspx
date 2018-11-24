@@ -16,26 +16,31 @@
 <title>Foods R Us</title>
 </head>
 	<body>
-		<a href="Dash">Back to dashboard</a>
 		
-		<!--  logout button -->
-		<c:if test="${!empty person}">
-			<div style="text-align:right">
-			<form>
-        		<input type="button" value="Logout" 
-        		onclick="location=&quot;Account?logout=true&quot;"/>
-        	</form>	
-			</div>
-		</c:if>
+		<c:if test="${empty display}">
 		
-		<h2 style="color:blue;">My Account</h2>
+			<a href="Dash">Back to dashboard</a>
+			
+			<!--  logout button -->
+			<c:if test="${!empty person}">
+				<div style="text-align:right">
+				<form>
+	        		<input type="button" value="Logout" 
+	        		onclick="location=&quot;Account?logout=true&quot;"/>
+	        	</form>	
+				</div>
+			</c:if>
+			
+			<h2 style="color:blue;">My Account</h2>
+			
+			
+			
+			<c:if test="${!empty person}">				
+				<div style="text-align:center">
+					<h4>welcome ${person.account}</h4>
+				</div>
+			</c:if>
 		
-		
-		
-		<c:if test="${!empty person}">				
-			<div style="text-align:center">
-				<h4>welcome ${person.account}</h4>
-			</div>
 		</c:if>
 		
 		

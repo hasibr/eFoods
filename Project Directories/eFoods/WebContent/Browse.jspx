@@ -37,10 +37,10 @@
 			<select id="categoryDropDown" name="catID" value="${catID}">
 
 				<option selected="any" value="NONE">Select Category:</option>
-				<option value="3">Meat</option>
-				<option value="4">Cheese</option>
-				<option value="5">Ice Cream</option>
-				<option value="6">Cereal</option>
+				
+				<c:forEach items="${categories}" var="category">
+					<option value="${category.id}">${category.name}</option>
+				</c:forEach>
 				
 			</select><br/>
 			
