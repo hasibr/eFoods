@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -13,6 +14,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = {"id", "submitted", "customer", "items", "total", "shipping", "HST", "grandTotal"})
 @XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 public class PO {
+	
+	String fileName;
 	
 	Customer customer;
 	
@@ -33,6 +36,16 @@ public class PO {
 	
 	
 	
+	@XmlTransient
+	public String getFileName()
+	{
+		return fileName;
+	}
+	public void setFileName(String fileName)
+	{
+		this.fileName = fileName;
+	}
+
 	public Customer getCustomer()
 	{
 		return customer;

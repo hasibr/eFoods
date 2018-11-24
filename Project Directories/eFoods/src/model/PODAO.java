@@ -89,13 +89,18 @@ public class PODAO{
 		return Arrays.asList(new File(rootDirectory()).listFiles(new FFilter()));
 	}
 	
+	public List<PO> getPOs(String accountName) throws Exception{
+		
+		return extractPOs(files(accountName));
+	}
+	
 	/**
 	 * returns a list of PO beans given a list of files
 	 * @param poFiles
 	 * @return
 	 * @throws Exception
 	 */
-	public List<PO> extractPOs(List<File> poFiles) throws Exception{
+	private List<PO> extractPOs(List<File> poFiles) throws Exception{
 		
 		List<PO> p = new ArrayList<>();
 		
@@ -113,7 +118,7 @@ public class PODAO{
 				InputStream is = new ByteArrayInputStream(xml.getBytes());
 				Document d = db.parse(is);
 				
-				p.add(parseDoc(d));
+				p.add(parseDoc(d,f.getName().replace(".xml", "")));
 				
 			}
 		}
@@ -146,7 +151,7 @@ public class PODAO{
 	 * @param doc
 	 * @return
 	 */
-	private PO parseDoc(Document doc) {
+	private PO parseDoc(Document doc, String fileName) {
 		
 		
 		Element rootElement = doc.getDocumentElement();
@@ -228,6 +233,8 @@ public class PODAO{
 		po.setId(id);
 		po.setSubmitted(submitted);
 		
+		po.setFileName(fileName);
+		
 		
 		
 		
@@ -263,22 +270,22 @@ public class PODAO{
 		
 	}
 	
-	public static void main(String[] args) throws Exception {
-		
-		PODAO p = new PODAO();
-		
-		DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-		
-		String xml = "";
-		Scanner x = new Scanner(new File(PODAO.rootDirectory()+"po_franciso01.xml"));
-		while(x.hasNextLine())
-			xml += x.nextLine();
-		x.close();
-		
-		InputStream is = new ByteArrayInputStream(xml.getBytes());
-		Document d = db.parse(is);
-		
-		System.out.println(p.parseDoc(d));
-	}
+//	public static void main(String[] args) throws Exception {
+//		
+//		PODAO p = new PODAO();
+//		
+//		DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+//		
+//		String xml = "";
+//		Scanner x = new Scanner(new File(PODAO.rootDirectory()+"po_franciso01.xml"));
+//		while(x.hasNextLine())
+//			xml += x.nextLine();
+//		x.close();
+//		
+//		InputStream is = new ByteArrayInputStream(xml.getBytes());
+//		Document d = db.parse(is);
+//		
+//		System.out.println(p.parseDoc(d,"po_franciso01.xml"));
+//	}
 	
 }

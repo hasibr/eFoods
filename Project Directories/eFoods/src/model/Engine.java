@@ -105,7 +105,17 @@ public class Engine {
 		return cart;
 	}
 	
-	
+	/**
+	 * this is called when the user has authenticated and has confirmed their order.
+	 * creates a PO object and marshals its contents to an xml file stores on disk
+	 * with the name pox_01.xml where x is the clients account name and 01 is a number
+	 * that signifies the number of POs that client has created.
+	 * 
+	 * @param cart
+	 * @param customer
+	 * @return
+	 * @throws Exception
+	 */
 	public ShoppingCart doConfirm(ShoppingCart cart, Customer customer) throws Exception {
 		PODAO poDao = new PODAO();
 		
@@ -145,28 +155,54 @@ public class Engine {
 	
 	
 	
+	/**
+	 * given an account, returns a list of PO objects associated with that account
+	 * 
+	 * @param accountName
+	 * @return List<PO>
+	 * @throws Exception
+	 */
+	public List<PO> doAccount(String accountName) throws Exception{
+		PODAO p = new PODAO();
+		
+		return p.getPOs(accountName);
+	}
 	
 	
 	
 //------------------------- helper methods --------------------------------------------------
 	
-	/**
-	 * create a customer bean and return it.
-	 * @param user
-	 * @param name
-	 * @param hash
-	 * @return
-	 */
-	public Customer createPerson(String user, String name, String hash) {
+	
+	public PO findPO(List<PO> pos, String fileName) {
 		
-		Customer p = new Customer();
-		p.setAccount(user);
-		p.setName(name);
-		p.setHash(hash);
+		for(PO p : pos) {
+			if(p.getFileName().equals(fileName)) {
+				return p;
+			}
+		}
 		
-		
-		return p;
+		return null;
 	}
+	
+	
+	
+//	/**
+//	 * create a customer bean and return it.
+//	 * @param user
+//	 * @param name
+//	 * @param hash
+//	 * @return
+//	 */
+//	public Customer createPerson(String user, String name, String hash) {
+//		
+//		Customer p = new Customer();
+//		p.setAccount(user);
+//		p.setName(name);
+//		p.setHash(hash);
+//		
+//		
+//		return p;
+//	}
 
 	/**
 	 * 

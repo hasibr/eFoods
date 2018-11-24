@@ -52,7 +52,7 @@ public class Confirm extends HttpServlet {
 			
 			if(user != null && session.getAttribute("person") == null) {
 				//The user is now logged in
-				Customer person = brain.createPerson(user, name, hash);
+				Customer person = new Customer(user, name, hash);
 				session.setAttribute("person", person);
 			}
 			

@@ -1,6 +1,8 @@
 package ctrl;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import beans.Customer;
+import beans.PO;
 import model.Engine;
 
 /**
@@ -59,13 +62,37 @@ public class Account extends HttpServlet {
 		String hash = request.getParameter("hash");
 		try {
 			Engine brain = Engine.getInstance();
-			Customer person = brain.createPerson(user, name, hash);
 			
-			 
+			
+			//Creates a customer and stores it in session. signifies the customer has logged in. 
 			if(user != null && session.getAttribute("person") == null) {
 				//The user is now logged in
+				Customer person = new Customer(user, name, hash);
 				session.setAttribute("person", person);
 			}
+			
+			// the user is logged in so show them their POs
+			if (session.getAttribute("person") != null) {
+				
+				Customer person = (Customer) session.getAttribute("person");
+				request.setAttribute("POs", brain.doAccount(person.getAccount()));
+
+			}
+			// show the PO the customer has clicked
+			if(request.getParameter("view") != null) {
+				
+				
+				@SuppressWarnings("unchecked")
+				List<PO> p = (List<PO>) request.getAttribute("POs");
+				String s = request.getParameter("view");
+				
+				PO po = brain.findPO(p, s);
+				request.setAttribute("display", po);
+//				request.setAttribute("items", po.getItems());
+				
+			}
+			
+			
 		}
 		catch(Exception e) {
 			e.printStackTrace();
