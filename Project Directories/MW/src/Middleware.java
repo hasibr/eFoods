@@ -12,7 +12,14 @@ public class Middleware {
 	public Middleware() {
 
 	}
-
+	
+	/**
+	 * A class that helps consolidate POs of new orders. The POtotal file is renewed after each run.
+	 * @throws SAXException
+	 * @throws IOException
+	 * @throws ParserConfigurationException
+	 * @throws TransformerException
+	 */
 	public void merge2() throws SAXException, IOException, ParserConfigurationException, TransformerException {
 		File dir = new File("POs/");
 		File[] rootFiles = dir.listFiles();
