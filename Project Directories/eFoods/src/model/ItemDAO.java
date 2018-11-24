@@ -95,7 +95,7 @@ public class ItemDAO{
 		}
 		catch(SQLException sqle) {
 			sqle.printStackTrace();
-			throw new Exception("Database encounterd an error. Please Try again later.");
+			throw new Exception("Database may be down. Please Try again later.");
 		}
 		catch(Exception e) {
 			e.printStackTrace();

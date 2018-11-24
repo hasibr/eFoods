@@ -46,7 +46,9 @@ public class Account extends HttpServlet {
 		
 		// log in button was pressed. redirect to Auth server
 		if(request.getParameter("login")!=null) {
-			String l = "http://localhost:4413/Auth/OAuth.do?back="+request.getRequestURL().toString();
+			String servName = request.getServerName();
+			
+			String l = "http://"+servName+":4413/Auth/OAuth.do?back="+request.getRequestURL().toString();
 			response.sendRedirect(l);
 			return;
 		}

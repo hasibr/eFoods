@@ -57,8 +57,8 @@
 				<h1>Details of Order:</h1>
 				
 				<table>
-					<tr><td>Account number: ${display.customer.account}</td></tr>
-					<tr><td>Order Number: ${display.id}</td></tr>
+					<tr><td>Account name: ${display.customer.account}</td></tr>
+					<tr><td>Order number: ${display.id}</td></tr>
 					<tr><td>Order date: ${display.submitted}</td></tr>
 				</table>
 				

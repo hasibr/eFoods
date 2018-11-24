@@ -59,8 +59,10 @@ public class Confirm extends HttpServlet {
 			
 			//client has not logged in yet. send them to authentication server
 			if(session.getAttribute("person") == null) {
+				String servName = request.getServerName();
+//				System.out.println(servName);
 				
-				String l = "http://localhost:4413/Auth/OAuth.do?back="+request.getRequestURL().toString();
+				String l = "http://"+servName+":4413/Auth/OAuth.do?back="+request.getRequestURL().toString();
 				response.sendRedirect(l);
 				return;
 			}
@@ -71,7 +73,10 @@ public class Confirm extends HttpServlet {
 			session.setAttribute("cart", cart);
 			
 			//redirect the user to their account
-			response.sendRedirect("Account");
+//			response.sendRedirect("Account");
+			
+			// show them a confirmation page with a link to their account
+			request.getServletContext().getRequestDispatcher("/ConfirmationPage.jspx").forward(request, response);
 		}
 		catch(Exception e) {
 			e.printStackTrace();

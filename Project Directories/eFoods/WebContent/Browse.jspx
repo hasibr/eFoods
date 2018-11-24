@@ -22,7 +22,8 @@
 		</div>
 		
 		<div style="text-align:right;">
-			<a href="Cart"> View cart</a>
+			<a href="Cart"> View cart</a><br/>
+			<a href="Checkout"> Checkout</a>
 		</div>
 		
 		<h2 style="color:blue;">Browse</h2>
