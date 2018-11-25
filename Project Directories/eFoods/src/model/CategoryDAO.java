@@ -12,10 +12,9 @@ import beans.Category;
 
 /**
  * 
- * @author francis okoyo
+ * @author franciso
  * 
- * when instantiated, gathers all the categories from the data base and returns them
- * in the form of a list of category beans.
+ * Gets the categories from the local database
  *
  */
 public class CategoryDAO{
@@ -24,13 +23,24 @@ public class CategoryDAO{
 //	public static final String DB_URL = "jdbc:derby://red.eecs.yorku.ca:64413/EECS;user=student;password=secret";
 
 	
-	private List<Category> beans;
+	public CategoryDAO(){/**/}
 	
-	public CategoryDAO() throws Exception {
+	/**
+	 * 
+	 * connect to the local database and extracts all the necessary information from the CATALOG table
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Category> retrieve() throws Exception {
 		
-		beans = new ArrayList<Category>();
+		List<Category> beans = new ArrayList<Category>();
 		
 		try {
+			
+			/*
+			 * connect to the local database and gather everything from the CATEGORY table
+			 */
 			Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
 			Connection con = DriverManager.getConnection(DB_URL);
 			Statement s = con.createStatement();
@@ -58,18 +68,17 @@ public class CategoryDAO{
 		}
 		catch(SQLException sqle) {
 			sqle.printStackTrace();
-			throw new Exception("Database may be down. Please Try again later.");
+			throw new Exception("An error occured while trying to access our database. "
+					+ "The server may be down."
+					+ ". Please Try again later.");
 		}
 		catch(Exception e) {
 			e.printStackTrace();
-			throw new Exception("We're having difficulties right now. Please try again later");
+			throw new Exception("To be honest, we dont know what happend. Were working on it."
+					+ " Please try again later. Sorry for the inconvenience");
 		}
 		
-	}
-	
-	public List<Category> retrieve() {
-		
-		return this.beans;
+		return beans;
 	}
 
 }

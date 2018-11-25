@@ -39,14 +39,16 @@ public class PODAO{
 	}
 	
 	/**
-	 * stores a PO.xml file on the system.
+	 * stores a PO.xml file on the system in a root folder in WEB-INF called POs/.
+	 * 
 	 * @param filename
 	 * @param po
 	 * @throws Exception
 	 */
 	public void storeFile(String filename, PO po) throws Exception {
 		
-//		String filePath = "POs/PO.xml";
+
+		
 		try {
 			File f = new File(ROOT+filename);
 			f.createNewFile();
@@ -54,12 +56,12 @@ public class PODAO{
 		
 			JAXBContext context = JAXBContext.newInstance(PO.class);
 			Marshaller m = context.createMarshaller();
-//			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+//			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE); //make pretty
 			m.marshal(po, out);
 		}
 		catch(JAXBException jbe) {
 			jbe.printStackTrace();
-			throw new Exception("JAXBE exception thrown. Couldn't generate PO");
+			throw new Exception("JAXBE exception. Couldn't generate PO");
 		}
 		catch(FileNotFoundException fnf) {
 			fnf.printStackTrace();
@@ -89,11 +91,20 @@ public class PODAO{
 		return Arrays.asList(new File(rootDirectory()).listFiles(new FFilter()));
 	}
 	
+	
+	/**
+	 * return a list of PO's belonging to this account
+	 * 
+	 * @param accountName
+	 * @return
+	 * @throws Exception
+	 */
 	public List<PO> getPOs(String accountName) throws Exception{
 		
 		return extractPOs(files(accountName));
 	}
-	
+
+//----------------------- helpers -------------------------------------------------
 	/**
 	 * returns a list of PO beans given a list of files
 	 * @param poFiles
@@ -144,7 +155,7 @@ public class PODAO{
 		return p;
 	}
 
-//----------------------- helpers -------------------------------------------------
+
 	
 	/**
 	 * creates and returns an PO beans given and xml document
@@ -154,11 +165,16 @@ public class PODAO{
 	private PO parseDoc(Document doc, String fileName) {
 		
 		
+		/*
+		 * extract the attributes of the PO (id and date submitted)
+		 */
 		Element rootElement = doc.getDocumentElement();
 		String id = rootElement.getAttribute("id");
 		String submitted = rootElement.getAttribute("submitted");
 		
-		
+		/*
+		 * extract the customers information (name and account)
+		 */
 		NodeList customer = doc.getElementsByTagName("customer");
 		Node customerNode = customer.item(0);
 		Element customerElement = (Element) customerNode;
@@ -169,6 +185,12 @@ public class PODAO{
 		String account = customerElement.getAttribute("account");
 		String name = n.getTextContent();
 		
+		
+		/*
+		 * extract the items and their information
+		 * 
+		 * NOTE: next time use JSON...
+		 */
 		NodeList item = doc.getElementsByTagName("item");
 		List<Item> itm = new ArrayList<>();
 		
@@ -177,50 +199,40 @@ public class PODAO{
 			Node itemNode = item.item(i);
 			Element itemElmenet = (Element)itemNode;
 			
-			String itemNum = itemElmenet.getAttribute("number");
-//			System.out.println(itemNum);
+			String itemNum = itemElmenet.getAttribute("number"); // product number
 			
 			//----------------------------------------
 			
 			Element itemContent = (Element) item.item(i);
 			
-			String a = itemContent.getElementsByTagName("name").item(0).getTextContent();
-			String b = itemContent.getElementsByTagName("price").item(0).getTextContent();
-			String c = itemContent.getElementsByTagName("quantity").item(0).getTextContent();
+			String a = itemContent.getElementsByTagName("name").item(0).getTextContent(); //item name
+			String b = itemContent.getElementsByTagName("price").item(0).getTextContent();//item price
+			String c = itemContent.getElementsByTagName("quantity").item(0).getTextContent();//item quantity
 //			String d = itemContent.getElementsByTagName("extended").item(0).getTextContent();
-//			System.out.println(a);
-//			System.out.println(b);
-//			System.out.println(c);
-//			System.out.println(d);
 			
-			Item bean = new Item(itemNum, a, b, c);
+			Item bean = new Item(itemNum, a, b, c);//,d);
 			
 			itm.add(bean);
 			
-			//System.out.println(itemContent.getTextContent());
 			
 		}
 		
+		/*
+		 * extract costs
+		 */
 		String total = doc.getElementsByTagName("total").item(0).getTextContent();
 		String shipping = doc.getElementsByTagName("shipping").item(0).getTextContent();
 		String HST = doc.getElementsByTagName("HST").item(0).getTextContent();
 		String grandTotal = doc.getElementsByTagName("grandTotal").item(0).getTextContent();
 		
 		
-//		System.out.println(id);
-//		System.out.println(submitted);
-//		System.out.println(account);
-//		System.out.println(name);
-//		
-//		System.out.println(itm.toString());
-//		System.out.println(total);
-//		System.out.println(shipping);
-//		System.out.println(HST);
-//		System.out.println(grandTotal);
-		
 		Items i = new Items();
 		i.setItm(itm);
 		
+		
+		/*
+		 * set the PO attributes
+		 */
 		PO po = new PO();
 		
 		po.setCustomer(new Customer(account, name, "N/A"));
@@ -236,23 +248,33 @@ public class PODAO{
 		po.setFileName(fileName);
 		
 		
-		
-		
-		
-		
 		return po;
 	}
 	
+	/**
+	 * 
+	 * 
+	 * @return root directory of the POs
+	 */
 	public static String rootDirectory() {
 		
 		return ROOT;
 		
 	}
 	
+	/**
+	 * 
+	 * @return number of files in the root directory
+	 */
 	public int rootFileCount() {
 		return new File(rootDirectory()).list().length;
 	}
 	
+	/**
+	 * 
+	 * @param name
+	 * @return the number of files in the root directory that have this name
+	 */
 	public int filesWithName(String name) {
 		
 		class FFilter implements FilenameFilter{
@@ -269,23 +291,5 @@ public class PODAO{
 		return new File(rootDirectory()).listFiles(new FFilter()).length;
 		
 	}
-	
-//	public static void main(String[] args) throws Exception {
-//		
-//		PODAO p = new PODAO();
-//		
-//		DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-//		
-//		String xml = "";
-//		Scanner x = new Scanner(new File(PODAO.rootDirectory()+"po_franciso01.xml"));
-//		while(x.hasNextLine())
-//			xml += x.nextLine();
-//		x.close();
-//		
-//		InputStream is = new ByteArrayInputStream(xml.getBytes());
-//		Document d = db.parse(is);
-//		
-//		System.out.println(p.parseDoc(d,"po_franciso01.xml"));
-//	}
 	
 }

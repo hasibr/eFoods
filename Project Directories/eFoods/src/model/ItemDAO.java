@@ -20,6 +20,7 @@ public class ItemDAO{
 	
 	
 	/**
+	 * Searches the database for food items based on the parameters provided by the client.
 	 * 
 	 * @param catID
 	 * @return returns a list of all the food items in the database
@@ -31,19 +32,24 @@ public class ItemDAO{
 		try {
 			List<Item> beans = new ArrayList<Item>();
 			
+			/*
+			 * connect to the database
+			 */
 			Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
 			Connection con = DriverManager.getConnection(DB_URL);
 			Statement s = con.createStatement();
 			s.executeUpdate("set schema roumani");
 			
-//			String query = "SELECT * FROM ITEM WHERE NAME LIKE '%"+ foodName
-//					+ "%' AND CATID LIKE " + catID
-//					+ " ORDER BY "+ sortBy +" ASC";
-			
 			
 			String query;
 			foodName = foodName.toLowerCase();
 			
+			/*
+			 * (IF) - if the client specified a food name, retrieve the food items matching that food name
+			 * from the table sorted in the order specified my the sortBy parameter.
+			 * 
+			 * (ELSE) - if the didnt specify a food name, get ALL the food items sorted by sortBy
+			 */
 			if(!foodName.trim().isEmpty()) {
 				if (catID.equalsIgnoreCase("none")) {
 					query = "SELECT * FROM ITEM WHERE lower(NAME) LIKE '%"+foodName+"%' ORDER BY "+ sortBy;
@@ -68,24 +74,23 @@ public class ItemDAO{
 			
 			Item bean;
 			
+			/*
+			 * loop through the result set and extract all the necessary information
+			 */
 			while(r.next()) {
 				
 				String number = r.getString("NUMBER"),
 						name = r.getString("NAME"),
-						price = String.format("$%.2f", Double.parseDouble(r.getString("PRICE"))),
-						qty = 1+"";//r.getString("QTY"),
-//						onorder = r.getString("ONORDER"),
-//						reorder = r.getString("REORDER"),
-//						catid = r.getString("CATID");
-//						supid = r.getString("SUPID"),
-//						costprice = r.getString("COSTPRICE");
+						price = String.format("%.2f", Double.parseDouble(r.getString("PRICE"))),
+						qty = "1";
 				
-				bean = new Item(number, name, price, qty);//, catid);
+				bean = new Item(number, name, price, qty);
 				beans.add(bean);
 				
 			}
 			r.close(); s.close(); con.close();
 			
+			/////////
 			return beans;
 							
 		}
@@ -95,18 +100,15 @@ public class ItemDAO{
 		}
 		catch(SQLException sqle) {
 			sqle.printStackTrace();
-			throw new Exception("Database may be down. Please Try again later.");
+			throw new Exception("An error occured while trying to access our database. "
+					+ "The server may be down."
+					+ ". Please Try again later.");
 		}
 		catch(Exception e) {
 			e.printStackTrace();
-			throw new Exception("We're having difficulties right now. Please try again later");
+			throw new Exception("To be honest, we dont know what happend. Were working on it."
+					+ " Please try again later. Sorry for the inconvenience");
 		}
-		
-	}
-	
-	
-	public void sortBy(String att){
-		
 		
 	}
 

@@ -25,7 +25,7 @@ public class Engine {
 	private static CategoryDAO catDAO = null;
 	private static ItemDAO itemDAO = null;
 	
-	private Engine() throws Exception {
+	private Engine(){
 		
 		catDAO = new CategoryDAO();
 		itemDAO = new ItemDAO();
@@ -38,7 +38,7 @@ public class Engine {
 	 * @throws Exception. contains the message(s) of error(s) that are encountered
 	 * during runtime.
 	 */
-	public synchronized static Engine getInstance() throws Exception {
+	public synchronized static Engine getInstance(){
 		
 		if (instance == null) {
 			
@@ -53,8 +53,9 @@ public class Engine {
 	 * 
 	 * @return a list containing category beans. These beans contain the names, id's and
 	 * descriptions of all the different categories offered by Foods R Us.
+	 * @throws Exception 
 	 */
-	public List<Category> doCategory(){
+	public List<Category> doCategory() throws Exception{
 		
 		return catDAO.retrieve();
 	}
@@ -74,41 +75,62 @@ public class Engine {
 	}
 	
 	
-	
+	/**
+	 * Performs 3 different actions depending on the parameters passed to it. if the client
+	 * cancels their order, this method calls a helper function that deletes all the items in
+	 * the shopping cart.
+	 * 
+	 * if the customer adds something to the cart, calls a helper function that adds said item
+	 * to the shopping cart.
+	 * 
+	 * if the customer chooses to update their cart, calls a helper function that may add more,
+	 * remove some or delete items completely from the shopping cart.
+	 * 
+	 * All 3 of these functions return an instance of the shopping cart after it has been mutated.
+	 * 
+	 * @param item
+	 * @param cart
+	 * @param add
+	 * @param update
+	 * @param cancel
+	 * @param parameters
+	 * @return
+	 */
 	public ShoppingCart doCart(Item item, ShoppingCart cart, String add,
 			String update, String cancel, Map<String, String[]> parameters) {
 		
 		
-		if(cancel != null && cancel.equalsIgnoreCase("true")) {
+		if(cancel != null && cancel.equalsIgnoreCase("true"))
 			return emptyCart(cart);
-//			System.out.println("cancel called");
-		}
-		if(add != null && add.equalsIgnoreCase("true")) {
-//			System.out.println("add called");
+		
+		
+		if(add != null && add.equalsIgnoreCase("true"))
 			return addToCart(cart, item);
-		}
 		
-		if(update != null && update.equalsIgnoreCase("true")) {
-//			System.out.println("Update called");
+		
+		if(update != null && update.equalsIgnoreCase("true")) 
 			return updateCart(cart, parameters);
-		}
 		
 		
-//		System.out.println("nothing called");	
+	
 		return cart;
 		
 	}
 	
-	
-	public ShoppingCart doCheckout(ShoppingCart cart) {
+	/**
+	 * On Checkout, checks if the chopping cart is empty.
+	 * @param cart
+	 * @return
+	 */
+	public boolean doCheckout(ShoppingCart cart) {
 		
-		return cart;
+		return cart.getItems().isEmpty();
 	}
 	
 	/**
 	 * this is called when the user has authenticated and has confirmed their order.
-	 * creates a PO object and marshals its contents to an xml file stores on disk
-	 * with the name pox_01.xml where x is the clients account name and 01 is a number
+	 * creates a PO object and marshals its contents to an XML file stores on disk
+	 * with the name po<x>_01.xml where x is the clients account name and 01 is a number
 	 * that signifies the number of POs that client has created.
 	 * 
 	 * @param cart
@@ -117,8 +139,12 @@ public class Engine {
 	 * @throws Exception
 	 */
 	public ShoppingCart doConfirm(ShoppingCart cart, Customer customer) throws Exception {
+		
 		PODAO poDao = new PODAO();
 		
+		/*
+		 * set PO attributes
+		 */
 		PO po = new PO();
 		
 		po.setItems(cart.getItemsObject());
@@ -127,29 +153,49 @@ public class Engine {
 		po.setHST(cart.getTax());
 		po.setGrandTotal(cart.getTotal());
 		
+		
+		/*
+		 * set customer attributes
+		 */
 		Customer cus = new Customer();
 		
 		cus.setAccount(customer.getAccount());
 		cus.setName(customer.getName());
 		cus.setHash(customer.getHash());
 		
+		/*
+		 * put the customer bean inside the PO bean
+		 */
 		po.setCustomer(cus);
 		
+		/*
+		 * create a date object and format it
+		 */
 		Date date = Calendar.getInstance().getTime();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		String d = df.format(date);
 		
+		/*
+		 * sets the id# of the PO. this is the total number of PO's created so far.
+		 * (sum of all the independent PO's created by each client)
+		 */
 		po.setId((1 + poDao.rootFileCount())+"");
 		po.setSubmitted(d);
 		
-		String fn = cus.getAccount();
-		int fc = poDao.filesWithName(fn) + 1;
+		/*
+		 * sets the filename for each PO. (po<x>_01.xml)
+		 * the client account name is <x> and the number is
+		 * gotten by checking the storage directory for files
+		 * whose name contain that account name.
+		 */
+		String filePrefix = cus.getAccount();
+		int fileCount = poDao.filesWithName("po"+filePrefix+"_") + 1;
 		
-		String filename = String.format("po_%s%02d.xml", fn, fc);
-		
+		//set the filename and store it on disk.
+		String filename = String.format("po%s_%02d.xml", filePrefix, fileCount);
 		poDao.storeFile(filename, po);
 		
-		
+		// empty the cart
 		return emptyCart(cart);
 	}
 	
@@ -169,10 +215,15 @@ public class Engine {
 	}
 	
 	
-	
-//------------------------- helper methods --------------------------------------------------
-	
-	
+	/**
+	 * Used by the account servlet to find a PO file to display.
+	 * this PO is in s list of PO's specific to the user. it is
+	 * impossible for a client to access another clients POs.
+	 * 
+	 * @param pos
+	 * @param fileName
+	 * @return
+	 */
 	public PO findPO(List<PO> pos, String fileName) {
 		
 		for(PO p : pos) {
@@ -185,24 +236,8 @@ public class Engine {
 	}
 	
 	
+//------------------------- helper methods --------------------------------------------------
 	
-//	/**
-//	 * create a customer bean and return it.
-//	 * @param user
-//	 * @param name
-//	 * @param hash
-//	 * @return
-//	 */
-//	public Customer createPerson(String user, String name, String hash) {
-//		
-//		Customer p = new Customer();
-//		p.setAccount(user);
-//		p.setName(name);
-//		p.setHash(hash);
-//		
-//		
-//		return p;
-//	}
 
 	/**
 	 * 

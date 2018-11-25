@@ -38,24 +38,16 @@ public class Checkout extends HttpServlet {
 		/*
 		 * the cart is empty so there's no reason to show the checkout page
 		 */
-		if(cart.getItems().isEmpty()) {
+		if(Engine.getInstance().doCheckout(cart)) {
 			response.sendRedirect("Cart");
 			return;
 		}
 		
 		
-		try {
-			Engine brain = Engine.getInstance();
 			
-			request.setAttribute("cart", brain.doCheckout(cart));
+		request.setAttribute("cart", cart);
 			
-		}
-		catch(Exception e) {
-			request.setAttribute("error", e.getMessage());
-		}
-		
-		
-		
+
 		request.getServletContext().getRequestDispatcher("/Checkout.jspx").forward(request, response);
 	}
 
