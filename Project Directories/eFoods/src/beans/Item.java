@@ -9,12 +9,13 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * 
- * @author francis okoyo
+ * @author franciso
  * 
  * 
- * This is an item bean. stores every thing you need to know about an item. on
- * Instantiation and price or quantity mutation, automatically calculates it's 
- * total price.
+ * This is an item bean. stores every thing you need to know about an item.
+ * Instantiation and price or quantity mutation automatically calculates it's 
+ * total price. Less work for the developer to manually calculate the total
+ * price everytime they change the quantity or even the price itself.
  *
  */
 @XmlRootElement(name = "item")
@@ -67,6 +68,8 @@ public class Item{
 	}
 	
 	/**
+	 * Product number. unique to each product
+	 * 
 	 * @return
 	 */
 	@XmlAttribute

@@ -9,7 +9,12 @@ import javax.xml.bind.annotation.XmlTransient;
 
 
 /**
+ * 
  * @author franciso
+ * 
+ * Represents a client. This is used for XML marshaling as well as a way of determining
+ * if a client has logged in. and instance of this bean is created after a successful login.
+ * when the user logs out this object is destroyed
  *
  */
 @XmlRootElement(name = "customer")
@@ -43,6 +48,8 @@ public class Customer
 
 
 	/**
+	 * the clients username
+	 * 
 	 * @return
 	 */
 	@XmlAttribute(name = "account")
@@ -59,6 +66,8 @@ public class Customer
 	}
 	
 	/**
+	 * The clients actual name
+	 * 
 	 * @return
 	 */
 	@XmlElement
@@ -75,6 +84,9 @@ public class Customer
 	}
 	
 	/**
+	 * A hash of the clients credentials. not used in this project, but is here if we 
+	 * need it.
+	 * 
 	 * @return
 	 */
 	@XmlTransient

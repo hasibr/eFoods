@@ -10,6 +10,16 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 
+
+
+/**
+ * 
+ * @author franciso
+ * 
+ * PO object that contains all the attributes necessary to marshal it into an XML file
+ * formatted in the required XSD schema
+ *
+ */
 @XmlRootElement(name = "order")
 @XmlType(propOrder = {"id", "submitted", "customer", "items", "total", "shipping", "HST", "grandTotal"})
 @XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
@@ -36,6 +46,11 @@ public class PO {
 	
 	
 	
+	/**
+	 * name of the file. used by when displaying a list of POs to the client
+	 * 
+	 * @return
+	 */
 	@XmlTransient
 	public String getFileName()
 	{

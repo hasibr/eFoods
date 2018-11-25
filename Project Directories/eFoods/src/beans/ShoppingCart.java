@@ -16,8 +16,10 @@ import java.util.HashMap;
  * 
  * 
  * 
- * NOTES: later on in this applications development, i may implement a method for this bean to calculate
- * it's total price automatically.
+ * NOTE:
+ * 
+ * This bean automatically calculates it's shipping cost, tax and total price. notice that the developer
+ * cannot set these attributes as the mutator methods are private. This makes life easier.
  *
  */
 public class ShoppingCart
@@ -50,7 +52,12 @@ public class ShoppingCart
 		return items;
 	}
 	
-	
+	/**
+	 * sums the total price of each Item object in the list and calculates the tax,
+	 * shipping and total cost automatically.
+	 * 
+	 * @param items
+	 */
 	public void setItems(HashMap<String, Item> items)
 	{
 		this.items = items;
@@ -84,8 +91,10 @@ public class ShoppingCart
 		return tax;
 	}
 	
-	/*
-	 * sets the tax based on what the sub total is
+	/**
+	 * sets the tax depending on the sub total
+	 * 
+	 * @param subTotal
 	 */
 	private void setTax(String subTotal)
 	{
@@ -97,7 +106,11 @@ public class ShoppingCart
 	{
 		return shipping;
 	}
-
+	/**
+	 * calculates shipping cost depending on the subtotal
+	 * 
+	 * @param subTotal
+	 */
 	private void setShipping(String subTotal)
 	{
 		double sTot = Double.parseDouble(subTotal);
@@ -129,6 +142,12 @@ public class ShoppingCart
 	}
 	
 	
+	/**
+	 * returns the list of items in this shopping cart as an instance of and "Items"
+	 * object. see "Items" class for more details.
+	 * 
+	 * @return
+	 */
 	public Items getItemsObject(){
 		
 		ArrayList<Item> l = new ArrayList<>();
