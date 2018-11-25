@@ -49,8 +49,21 @@ public class Confirm extends HttpServlet {
 			String name = request.getParameter("name");
 			String hash = request.getParameter("hash");
 
-			
-			if(user != null && session.getAttribute("person") == null) {
+			/*
+			 * if this parameter "user" is not null, that means the authentication server
+			 * redirected the user back with a username, name and hash.
+			 * 
+			 * NOTE: because we aren't using the hash, we are not verifying that the user
+			 * is actually who he or she is saying they are.
+			 * 
+			 * - Someone can easily just put nonsense in the parameter for user or name or hash
+			 * and gain access to the service under a nonsense credential.
+			 * 
+			 * - We are only trusting that they
+			 * were redirected by the authentication server.
+			 */
+			if(hash != null && session.getAttribute("person") == null) {
+				
 				//The user is now logged in
 				Customer person = new Customer(user, name, hash);
 				session.setAttribute("person", person);
@@ -60,20 +73,20 @@ public class Confirm extends HttpServlet {
 			//client has not logged in yet. send them to authentication server
 			if(session.getAttribute("person") == null) {
 				String servName = request.getServerName();
-//				System.out.println(servName);
 				
 				String l = "http://"+servName+":4413/Auth/OAuth.do?back="+request.getRequestURL().toString();
 				response.sendRedirect(l);
 				return;
 			}
 				
-							
+			
+			/*
+			 * confirm the order
+			 */
 			Customer cus = (Customer) session.getAttribute("person");
 			cart = brain.doConfirm(cart, cus);
 			session.setAttribute("cart", cart);
 			
-			//redirect the user to their account
-//			response.sendRedirect("Account");
 			
 			// show them a confirmation page with a link to their account
 			request.getServletContext().getRequestDispatcher("/ConfirmationPage.jspx").forward(request, response);
