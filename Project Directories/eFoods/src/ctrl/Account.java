@@ -40,7 +40,8 @@ public class Account extends HttpServlet {
 		//log the user out if logout button was pressed.
 		if (request.getParameter("logout") != null && request.getParameter("logout").equals("true")) {
 			session.removeAttribute("person");
-			response.sendRedirect("Categories?show=1");
+			//response.sendRedirect("Categories?show=1");
+			response.sendRedirect("Dash");
 			return;
 		}
 		
@@ -69,7 +70,7 @@ public class Account extends HttpServlet {
 			//Creates a customer and stores it in session. signifies the customer has logged in. 
 			if(user != null && session.getAttribute("person") == null) {
 				//The user is now logged in
-				Customer person = new Customer(user, name, hash);
+				Customer person = brain.getNewCustomer(user, name, hash);
 				session.setAttribute("person", person);
 			}
 			

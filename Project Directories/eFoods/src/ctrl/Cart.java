@@ -43,7 +43,7 @@ public class Cart extends HttpServlet {
 			// if the client doesn't have a cart (first visit), make one.
 			ShoppingCart cart;
 			if(session.getAttribute("cart") == null) {
-				cart = new ShoppingCart();
+				cart = brain.getNewCart();
 				session.setAttribute("cart", cart);
 			}else {
 				cart = (ShoppingCart) session.getAttribute("cart");
@@ -71,7 +71,7 @@ public class Cart extends HttpServlet {
 				qty = "0";
 			}
 			
-			Item item = new Item(id, name, price, category, qty);
+			Item item = brain.getNewItem(id, name, price, category, qty);
 			
 			ShoppingCart result = brain.doCart(item, cart, add, update, cancel, parameters);
 			request.setAttribute("cart", result);

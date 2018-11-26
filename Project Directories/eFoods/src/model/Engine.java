@@ -75,6 +75,7 @@ public class Engine {
 	}
 	
 	
+	
 	/**
 	 * Performs 3 different actions depending on the parameters passed to it. if the client
 	 * cancels their order, this method calls a helper function that deletes all the items in
@@ -238,6 +239,44 @@ public class Engine {
 	
 //------------------------- helper methods --------------------------------------------------
 	
+	/**
+	 * Create new customer object
+	 * @param user
+	 * @param name
+	 * @param hash
+	 * @return
+	 */
+	public Customer getNewCustomer(String user, String name, String hash) {
+		
+		return new Customer(user, name, hash);
+	}
+	
+	/**
+	 * Creates an Item object
+	 * 
+	 * @param id
+	 * @param name
+	 * @param price
+	 * @param category
+	 * @param qty
+	 * @return
+	 */
+	public Item getNewItem(String id, String name, String price, String category, String qty) {
+		
+		return new Item(id, name, price, category, qty);
+		
+	}
+	
+	
+	/**
+	 * makes a shopping cart object
+	 * 
+	 * @return
+	 */
+	public ShoppingCart getNewCart() {
+		
+		return new ShoppingCart();
+	}
 
 	/**
 	 * 

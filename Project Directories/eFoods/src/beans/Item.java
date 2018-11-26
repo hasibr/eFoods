@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  *
  */
 @XmlRootElement(name = "item")
-@XmlType(propOrder = {"number","name","price","qty", "category", "totalPrice"})
+@XmlType(propOrder = {"number","name","price","qty", "totalPrice"})
 @XmlAccessorType (XmlAccessType.PUBLIC_MEMBER)
 public class Item{
 	
@@ -34,6 +34,22 @@ public class Item{
 	
 	public Item() {
 		/**/
+	}
+	
+	/**
+	 * 
+	 * @param number
+	 * @param name
+	 * @param price
+	 * @param qty
+	 */
+	public Item(String number, String name, String price, String qty) {
+		super();
+		this.number = number;
+		this.name = name;
+		this.price = String.format("$%.2f", Double.parseDouble(price.replace("$", "")));
+		this.qty = qty;
+		this.totalPrice = calcTotPrc(qty, price);
 	}
 	
 	/**

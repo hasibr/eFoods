@@ -207,11 +207,10 @@ public class PODAO{
 			
 			String a = itemContent.getElementsByTagName("name").item(0).getTextContent(); //item name
 			String b = itemContent.getElementsByTagName("price").item(0).getTextContent();//item price
-			String c = itemContent.getElementsByTagName("category").item(0).getTextContent();//item category
-			String d = itemContent.getElementsByTagName("quantity").item(0).getTextContent();//item quantity
-//			String e = itemContent.getElementsByTagName("extended").item(0).getTextContent();
+			String c = itemContent.getElementsByTagName("quantity").item(0).getTextContent();//item quantity
+//			String d = itemContent.getElementsByTagName("extended").item(0).getTextContent();
 			
-			Item bean = new Item(itemNum, a, b, c, d);//,e);
+			Item bean = new Item(itemNum, a, b, c);//,d);
 			
 			itm.add(bean);
 			
