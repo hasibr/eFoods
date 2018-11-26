@@ -54,6 +54,7 @@ public class Cart extends HttpServlet {
 			String name = request.getParameter("name");
 			String id = request.getParameter("id");
 			String price = request.getParameter("price");
+			String category = request.getParameter("category");
 			String qty = request.getParameter("qty");
 			
 			String add = request.getParameter("add");
@@ -66,10 +67,11 @@ public class Cart extends HttpServlet {
 				name = "N/A";
 				id = "N/A";
 				price = "0.00";
+				category = "N/A";
 				qty = "0";
 			}
 			
-			Item item = new Item(id, name, price, qty);
+			Item item = new Item(id, name, price, category, qty);
 			
 			ShoppingCart result = brain.doCart(item, cart, add, update, cancel, parameters);
 			request.setAttribute("cart", result);

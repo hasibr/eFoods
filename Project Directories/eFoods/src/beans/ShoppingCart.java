@@ -30,6 +30,7 @@ public class ShoppingCart
 	String tax;
 	String shipping;
 	String total;
+	String numItems;
 	
 	public ShoppingCart() {
 		/**/
@@ -38,6 +39,7 @@ public class ShoppingCart
 		this.tax = "0.00";
 		this.shipping = "0.00";
 		this.total = "0.00";
+		this.numItems = String.valueOf(this.items.size());
 	}
 
 	public ShoppingCart(HashMap<String,Item> items, String subTotal)
@@ -45,6 +47,7 @@ public class ShoppingCart
 		super();
 		this.items = items;
 		this.subTotal = subTotal;
+		this.numItems = String.valueOf(this.items.size());
 	}
 
 	public HashMap<String, Item> getItems()
@@ -161,5 +164,6 @@ public class ShoppingCart
 		
 		return i;
 	}
+	
 	
 }

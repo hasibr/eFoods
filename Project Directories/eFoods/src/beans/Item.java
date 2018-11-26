@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 /**
@@ -19,7 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  *
  */
 @XmlRootElement(name = "item")
-@XmlType(propOrder = {"number","name","price","qty","totalPrice"})
+@XmlType(propOrder = {"number","name","price","qty", "category", "totalPrice"})
 @XmlAccessorType (XmlAccessType.PUBLIC_MEMBER)
 public class Item{
 	
@@ -27,6 +28,7 @@ public class Item{
 					name,
 					price,
 					qty, // number of the item
+					category,
 					totalPrice;
 	
 	
@@ -38,14 +40,16 @@ public class Item{
 	 * @param number
 	 * @param name
 	 * @param price
+	 * @param category
 	 * @param qty
 	 */
-	public Item(String number, String name, String price, String qty)
+	public Item(String number, String name, String price, String category, String qty)
 	{
 		super();
 		this.number = number;
 		this.name = name;
 		this.price = String.format("$%.2f", Double.parseDouble(price.replace("$", "")));
+		this.category = category;
 		this.qty = qty;
 		this.totalPrice = calcTotPrc(qty, price);
 	}
@@ -173,8 +177,17 @@ public class Item{
 		
 		
 	}
+	
+	@XmlTransient
+	public String getCategory()
+	{
+		return category;
+	}
 
-
+	public void setCategory(String category)
+	{
+		this.category = category;
+	}
 
 	/**
 	 * @return
@@ -203,5 +216,4 @@ public class Item{
 		return "Item [number=" + number + ", name=" + name + ", price=" + price + ", qty=" + qty + ", totalPrice="
 				+ totalPrice + "]";
 	}
-
 }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+   - Title: Navbar
+   -
+   - Description:
+   -     Fragment for displaying the navigation bar.
+   - Parameters:
+   -     param.title     the page title
+   -->
+<jsp:root
+   xmlns:jsp="http://java.sun.com/JSP/Page"
+   xmlns:c="http://java.sun.com/jsp/jstl/core"
+   xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+   xmlns:f="http://java.sun.com/jsp/jstl/fmt"
+   version="2.0"
+   >
+   <div>
+      <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
+         <div class="container">
+            <a class="navbar-brand" href="Dash">${param.title}</a><button class="navbar-toggler" data-toggle="collapse"
+               data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+            
+               <ul class="nav navbar-nav mr-auto">
+               	<!--  
+                  <li class="nav-item" role="presentation"><a class="nav-link" href="Categories?show=1">Categories</a></li>
+                  <li class="nav-item" role="presentation"><a class="nav-link" href="Browse?name=&amp;search=1&amp;sortBy=NAME&amp;catID=NONE">Browse</a></li>
+                  -->
+               </ul> 
+               <span class="navbar-text actions">
+                  <a class="btn btn-light action-button" role="button" href="Cart">
+                     <i class="fa fa-shopping-cart">
+                        <!-- Do not remove -->
+                     </i>
+                     Cart
+                  </a>
+                  <a class="btn btn-light action-button" role="button" href="Account">
+                     <i class="fa fa-user-circle">
+                        <!-- Do not remove -->
+                     </i>
+                     My
+                     Account
+                  </a>
+               </span>
+            </div>
+         </div>
+      </nav>
+   </div>
+</jsp:root>

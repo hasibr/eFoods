@@ -82,9 +82,10 @@ public class ItemDAO{
 				String number = r.getString("NUMBER"),
 						name = r.getString("NAME"),
 						price = String.format("%.2f", Double.parseDouble(r.getString("PRICE"))),
+						category = r.getString("CATID"),
 						qty = "1";
 				
-				bean = new Item(number, name, price, qty);
+				bean = new Item(number, name, price, category, qty);
 				beans.add(bean);
 				
 			}
@@ -96,18 +97,18 @@ public class ItemDAO{
 		}
 		catch(ClassNotFoundException cnfe) {
 			cnfe.printStackTrace();
-			throw new Exception("Could not initialize derby. Please try again later");
+			throw new Exception("Could not initialize derby. Please try again later.");
 		}
 		catch(SQLException sqle) {
 			sqle.printStackTrace();
 			throw new Exception("An error occured while trying to access our database. "
-					+ "The server may be down."
-					+ ". Please Try again later.");
+					+ "The server may be down. "
+					+ "Please try again later.");
 		}
 		catch(Exception e) {
 			e.printStackTrace();
-			throw new Exception("To be honest, we dont know what happend. Were working on it."
-					+ " Please try again later. Sorry for the inconvenience");
+			throw new Exception("To be honest, we dont know what happend. We are working on it. "
+					+ " Please try again later. Sorry for the inconvenience!");
 		}
 		
 	}
