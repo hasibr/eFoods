@@ -76,6 +76,7 @@ public class Cart extends HttpServlet {
 			
 			ShoppingCart result = brain.doCart(item, cart, add, update, cancel, parameters);
 			request.setAttribute("cart", result);
+			
 		
 		}
 		catch(Exception e) {
