@@ -9,6 +9,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
+import beans.Item;
+import model.Engine;
+
 /**
  * Servlet Filter implementation class Advertise
  */
@@ -36,16 +39,44 @@ public class Advertise implements Filter {
 		// TODO Auto-generated method stub
 		// place your code here
 		
-//		
-//		if(request.getParameter("add")!=null) {
-//			
-//			
-//			
-//			if (request.getParameter("id").equals("1409S413")) {
-//				System.out.println("Advertise 2002H712");
-//			}
-//		}
-//		
+		
+		
+		if(request.getParameter("add")!=null && request.getParameter("id").equals("1409S413")) {
+			
+			Engine brain = Engine.getInstance();
+			
+			try {
+				
+				Item ord = brain.doExpress(request.getParameter("id"));
+				Item ad = brain.doExpress("2002H712");
+				
+				request.setAttribute("suggest", ord.getName());
+				request.setAttribute("ad", ad);
+			
+			}
+			catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if(request.getParameter("add")!=null && request.getParameter("id").equals("2002H712")) {
+			
+			Engine brain = Engine.getInstance();
+			
+			try {
+				
+				Item ord = brain.doExpress(request.getParameter("id"));
+				Item ad = brain.doExpress("1409S413");
+				
+				request.setAttribute("suggest", ord.getName());
+				request.setAttribute("ad", ad);
+			
+			}
+			catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 		// pass the request along the filter chain
 		chain.doFilter(request, response);

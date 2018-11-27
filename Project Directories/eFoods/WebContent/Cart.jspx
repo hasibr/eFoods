@@ -82,7 +82,30 @@
 			</div>
 		</c:if>
 		
-		
+		<c:if test="${!empty ad}">
+			<div style="text-align:left;">
+			
+				<p>We noticed that you liked ${suggest}.<br/>Would you like to purchase this too?</p>
+				<table style="text-align:center;" border="1">
+					<tr style="padding: 6px;"><td> Name: ${ad.name} </td></tr>
+					<tr style="padding: 6px;"><td> Product number: ${ad.number}</td></tr>
+					<tr style="padding: 6px;"><td> Price: $${ad.price}</td></tr>
+					<tr style="padding: 6px;"><td> Catalog ID: ${ad.category}</td></tr>	
+				</table>
+				
+				<form action="Cart" method="POST">
+					<input type="hidden" name="name" value="${ad.name}"></input>
+					<input type="hidden" name="id" value="${ad.number}"></input>
+					<input type="hidden" name="price" value="${ad.price}"></input>
+					<input type="number" min="1" name="qty" value="1" placeholder="qty"/>
+						
+					<input type="hidden" name="add" value="true"/>
+						
+					<button>Add to cart</button>
+						
+				</form><br/>
+			</div>
+		</c:if>
 		
 		<c:if test="${!empty error}">
 			<h2 style="color:red; text-align:center;">${error}</h2>
