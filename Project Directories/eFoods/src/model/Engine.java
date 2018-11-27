@@ -74,6 +74,19 @@ public class Engine {
 		return itemDAO.retrieve(name, sortBy, catID);
 	}
 	
+	/**
+	 * does the same thing as doBrowse but searches with the product id instead of
+	 * @param id
+	 * @param sortBy
+	 * @param catID
+	 * @return
+	 * @throws Exception
+	 */
+	public Item doExpress(String id) throws Exception{
+		
+		return itemDAO.retrieve(id);
+	}
+	
 	
 	
 	/**

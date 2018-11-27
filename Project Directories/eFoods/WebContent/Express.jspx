@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+	version="2.0">
+	<jsp:directive.page contentType="text/html; charset=UTF-8" 
+		pageEncoding="UTF-8" session="false"/>
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+		omit-xml-declaration="true" />
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Foods R Us</title>
+</head>
+	<body>
+	
+		<div style="text-align:left;">
+			<a href="Dash">Back to dashboard </a>
+		</div>
+		
+		<div style="text-align:right;">
+			<a href="Cart"> View cart</a><br/>
+			<a href="Checkout"> Checkout</a><br/>
+			<a href="Account"> My Account</a>
+		</div>
+		
+		<h2 style="text-align:center; color:blue;">Express Order</h2>
+		
+		
+		<div style="text-align:center;">
+			<form action="Express" method="POST">
+				<input type="text" name="id" value="${id}" placeholder="Product ID"/><br/>
+				<input type="number" min="1" name="qty" value="1" placeholder="Qty"/><br/>
+				
+				<input type="submit" name="calc" value="Add to cart"/>
+			</form>
+		</div>
+		
+		
+		<c:if test="${!empty error}">
+			<h3 style="color: red;">${error}</h3>
+		</c:if>
+	
+	</body>
+</html>
+
+</jsp:root>

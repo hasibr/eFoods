@@ -82,6 +82,8 @@
 			</div>
 		</c:if>
 		
+		
+		
 		<c:if test="${!empty error}">
 			<h2 style="color:red; text-align:center;">${error}</h2>
 		</c:if>
