@@ -1,4 +1,5 @@
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -69,6 +70,10 @@ public class PurchCons {
 	//Method to write Consolidated xml file for B2B
 	public void write()
 	{
+		File dir = new File("DONE/");
+		File [] rootFiles = dir.listFiles();
+		int num = rootFiles.length + 1;
+				
 		//Get current date when files are being consolidater
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
@@ -87,7 +92,7 @@ public class PurchCons {
 		}
 		myoutput= myoutput + "</order>";
 		//get Writer to file called "POtot.xml"
-		Writer output = new BufferedWriter(new FileWriter("DONE/POtot.xml"));
+		Writer output = new BufferedWriter(new FileWriter("DONE/POtot"+num +".xml"));
         String xmlOutput = myoutput; 
       //Write the consolidated xml to file
         output.write(xmlOutput);
