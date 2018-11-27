@@ -57,7 +57,7 @@
                      </li>
                   </ul>
                   <form>
-                     <input type="button" class="btn btn-primary btn-lg btn-block" value="Place Order" onclick="location=&quot;Confirm&quot;"/>
+                     <input type="button" class="btn btn-primary btn-lg btn-block" value="Place Order" onclick="location=&quot;Confirm&quot;" name="confirmOrderBut"/>
                      <input type="button" class="btn btn-secondary btn-lg btn-block" value="Continue Shopping" onclick="location=&quot;Browse?name=&amp;search=1&amp;sortBy=NAME&amp;catID=NONE&quot;"/>
                      <input type="button" class="btn btn-secondary btn-lg btn-block" value="Cancel Order" onclick="location=&quot;Cart?cancel=true&quot;"/>
                   </form>
