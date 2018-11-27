@@ -7,19 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import beans.Item;
 import model.Engine;
 
 /**
- * Servlet implementation class Browse
+ * Servlet implementation class Express
  */
-@WebServlet("/Browse")
-public class Browse extends HttpServlet {
+@WebServlet("/Express")
+public class Express extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Browse() {
+    public Express() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,32 +29,32 @@ public class Browse extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		
-		if (request.getParameter("search") != null && request.getParameter("search").equals("1")) {
+		
+		if(request.getParameter("calc") != null) {
 			
+			
+			Engine brain = Engine.getInstance();
 			
 			try {
-				// gather information from the form on this page
-				String catID = request.getParameter("catID");
-				String name = request.getParameter("name");
-				String sortBy = request.getParameter("sortBy");
-				Engine brain = Engine.getInstance();
+				String id = request.getParameter("id");
+				Item item = brain.doExpress(id);
 				
-				request.setAttribute("name", name);
-				request.setAttribute("catID", catID);
-				request.setAttribute("sortBy", sortBy);
+				String name = item.getName();
+				String price = item.getPrice();
+				String qty = request.getParameter("qty");
 				
-				// returns a table with all the items that match the client's description
-				request.setAttribute("categories", brain.doCategory());
-				request.setAttribute("result", brain.doBrowse(name, sortBy, catID));
 				
+				response.sendRedirect(String.format("Cart?add=true&name=%s&price=%s&qty=%s&id=%s", name, price, qty, id));
+				return;
 			}
 			catch(Exception e) {
 				request.setAttribute("error", e.getMessage());
 			}
-			
 		}
-		request.getServletContext().getRequestDispatcher("/Browse.jspx").forward(request, response);
+
+		request.getServletContext().getRequestDispatcher("/Express.jspx").forward(request, response);
 	}
 
 	/**

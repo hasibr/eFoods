@@ -60,6 +60,7 @@ public class Cart extends HttpServlet {
 			String add = request.getParameter("add");
 			String update = request.getParameter("update");
 			String cancel = request.getParameter("cancel");
+			
 			Map<String, String[]> parameters = request.getParameterMap();
 						
 			// create new item bean with that data
@@ -75,6 +76,7 @@ public class Cart extends HttpServlet {
 			
 			ShoppingCart result = brain.doCart(item, cart, add, update, cancel, parameters);
 			request.setAttribute("cart", result);
+			
 		
 		}
 		catch(Exception e) {

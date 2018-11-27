@@ -19,6 +19,75 @@ public class ItemDAO{
 	public ItemDAO(){ }
 	
 	
+	public Item retrieve(String id) throws Exception {
+		
+		try {
+			
+			/*
+			 * connect to the database
+			 */
+			Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
+			Connection con = DriverManager.getConnection(DB_URL);
+			Statement s = con.createStatement();
+			s.executeUpdate("set schema roumani");
+			
+			
+			String query;
+			id = id.toLowerCase();
+			
+			
+			if(!id.trim().isEmpty()) {
+				
+				query = "SELECT * FROM ITEM WHERE lower(NUMBER) LIKE '%"+id+"%'";
+			
+			}
+			else {
+				throw new Exception("Please enter a product id!");
+			}
+			
+			ResultSet r = s.executeQuery(query);
+			
+			Item bean = null;
+			
+			/*
+			 * loop through the result set and extract all the necessary information
+			 */
+			while(r.next()) {
+				
+				String number = r.getString("NUMBER"),
+						name = r.getString("NAME"),
+						price = String.format("%.2f", Double.parseDouble(r.getString("PRICE"))),
+						category = r.getString("CATID"),
+						qty = "1";
+				
+				bean = new Item(number, name, price, category, qty);
+				
+			}
+			r.close(); s.close(); con.close();
+			
+			/////////
+			return bean;
+		}
+		catch(ClassNotFoundException cnfe) {
+			cnfe.printStackTrace();
+			throw new Exception("Could not initialize derby. Please try again later.");
+		}
+		catch(SQLException sqle) {
+			sqle.printStackTrace();
+			throw new Exception("An error occured while trying to access our database. "
+					+ "The server may be down. "
+					+ "Please try again later.");
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			throw new Exception("To be honest, we dont know what happend. We are working on it. "
+					+ " Please try again later. Sorry for the inconvenience!");
+		}
+		
+		
+	}
+	
+	
 	/**
 	 * Searches the database for food items based on the parameters provided by the client.
 	 * 
