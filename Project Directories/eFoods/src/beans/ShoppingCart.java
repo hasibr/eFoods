@@ -39,7 +39,7 @@ public class ShoppingCart
 		this.tax = "0.00";
 		this.shipping = "0.00";
 		this.total = "0.00";
-		this.numItems = String.valueOf(this.items.size());
+		this.numItems = "0";
 	}
 
 	public ShoppingCart(HashMap<String,Item> items, String subTotal)
@@ -47,7 +47,7 @@ public class ShoppingCart
 		super();
 		this.items = items;
 		this.subTotal = subTotal;
-		this.numItems = String.valueOf(this.items.size());
+		setNumItems();
 	}
 
 	public HashMap<String, Item> getItems()
@@ -77,6 +77,7 @@ public class ShoppingCart
 		setTax(tot + "");
 		setShipping(tot + "");
 		setTotal();
+		setNumItems();
 	}
 
 	public String getSubTotal()
@@ -144,6 +145,17 @@ public class ShoppingCart
 		this.total = String.format("%.2f", d);
 	}
 	
+	public String getNumItems() {
+		return numItems;
+	}
+	
+	public void setNumItems() {
+		int totalNumItems = 0;
+		for (Item i : this.items.values()) {
+			totalNumItems += Integer.parseInt(i.getQty());
+		}
+		this.numItems = String.valueOf(totalNumItems);
+	}
 	
 	/**
 	 * returns the list of items in this shopping cart as an instance of and "Items"

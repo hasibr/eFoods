@@ -6,7 +6,7 @@
    -     Categories component for the main page.
    -
    - Parameters:
-   -     param.title     the page title
+   -     result     the categories result
    -->
 <jsp:root
    xmlns:jsp="http://java.sun.com/JSP/Page"
@@ -23,15 +23,13 @@
          <h4 style="color: red;">${error}</h4>
          <div class="card-deck">
             <c:forEach begin="0" end="3" varStatus="loop">
-               <a href="" class="custom-card">
+            	<a href="" class="custom-card">
                   <div class="card align-items-center">
-                     <img class="card-img-top" src="./assets/img/bread.png" alt="No category" />
+                     <img class="card-img-top" src="./assets/img/bread.png" alt="Database down" />
                      <div class="card-block text-center">
-                        <h4 class="card-title"></h4>
-                        <p class="card-text"></p>
+                        <h4 class="card-title">Database</h4>
+                        <p class="card-text">Sorry, looks like the database has not been started!</p>
                <a href="" class="btn btn-primary" style="display: none"></a>
-               </div>
-               <div class="card-block text-center">
                </div>
                </div>
                </a>

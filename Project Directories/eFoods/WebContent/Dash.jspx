@@ -21,7 +21,6 @@
          </jsp:include>
          <div class="jumbotron  jumbotron-fluid">
             <div class="container">
-				<h3 style="color:red; text-align:center">${cart.numItems}</h3>
                <h1>Welcome to Foods R Us</h1>
                <p>Groceries made easy.</p>
                <p><a class="btn btn-primary btn-lg" href="Browse?name=&amp;search=1&amp;sortBy=NAME&amp;catID=NONE" role="button">Browse</a>
