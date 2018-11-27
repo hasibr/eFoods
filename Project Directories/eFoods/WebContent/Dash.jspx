@@ -1,41 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<jsp:root
-	xmlns:jsp="http://java.sun.com/JSP/Page"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-	version="2.0">
-   <jsp:directive.page contentType="text/html; charset=UTF-8" 
-      pageEncoding="UTF-8" session="false"/>
-   <jsp:output doctype-root-element="html"
-      doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-      doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
-      omit-xml-declaration="true" />
-   <html
-      xmlns="http://www.w3.org/1999/xhtml">
-      <jsp:include page="/Includes/Header.jspx">
-         <jsp:param name="title"  value="Foods R Us" />
-      </jsp:include>
-      <body>
-         <jsp:include page="/Includes/Navbar.jspx">
-            <jsp:param name="title"  value="Foods R Us" />
-         </jsp:include>
-         <div class="jumbotron  jumbotron-fluid">
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" version="2.0">
+    <jsp:directive.page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session="false" />
+    <jsp:output doctype-root-element="html" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" omit-xml-declaration="true" />
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    <jsp:include page="/Includes/Header.jspx">
+        <jsp:param name="title" value="Foods R Us" />
+    </jsp:include>
+
+    <body>
+        <jsp:include page="/Includes/Navbar.jspx">
+            <jsp:param name="title" value="Foods R Us" />
+        </jsp:include>
+        <div class="jumbotron  jumbotron-fluid">
             <div class="container">
-               <h1>Welcome to Foods R Us</h1>
-               <p>Groceries made easy.</p>
-               <p><a class="btn btn-primary btn-lg" href="Browse?name=&amp;search=1&amp;sortBy=NAME&amp;catID=NONE" role="button">Browse</a>
-               </p>
+                <h1>Welcome to Foods R Us</h1>
+                <p>Groceries made easy.</p>
+                <p><a class="btn btn-primary btn-lg" href="Browse?name=&amp;search=1&amp;sortBy=NAME&amp;catID=NONE" role="button">Browse</a>
+                </p>
+                <br></br>
+                <jsp:include page="/Includes/ExpressComponent.jspx">
+        </jsp:include>
             </div>
-         </div>
-         
-         <form action="Dash" method="POST">
-      <input type="hidden" name="show" value="1"/>
-   </form>
-         <jsp:include page="/Includes/CategoriesComponent.jspx">
-         	<jsp:param name="result" value="${result}" />
-         </jsp:include>
-         <br></br>
-         <jsp:include page="/Includes/Footer.jspx"></jsp:include>
-      </body>
-   </html>
+        </div>
+        
+		<br></br>
+        <form action="Dash" method="POST">
+            <input type="hidden" name="show" value="1" />
+        </form>
+        <jsp:include page="/Includes/CategoriesComponent.jspx">
+            <jsp:param name="result" value="${result}" />
+        </jsp:include>
+        <br></br>
+        <jsp:include page="/Includes/Footer.jspx"></jsp:include>
+    </body>
+
+    </html>
 </jsp:root>

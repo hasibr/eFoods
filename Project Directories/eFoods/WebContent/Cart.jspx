@@ -39,7 +39,9 @@
                               <tr>
                                  <td data-th="Product">
                                     <div class="row">
-                                       <div class="col-sm-2 hidden-xs"><img src="./assets/img/bread.png" alt="${bean.value.name}" class="img-thumbnail"/></div>
+                                       <div class="col-sm-2 hidden-xs">
+                                          <img src="./assets/img/bread.png" alt="${bean.value.name}" class="img-thumbnail"/>
+                                       </div>
                                        <div class="col-sm-10">
                                           <h4 class="nomargin">${bean.value.name}</h4>
                                           <p>Product ID: ${bean.value.number}</p>
@@ -52,15 +54,23 @@
                                  </td>
                                  <td data-th="Subtotal" class="text-center">$${bean.value.totalPrice}</td>
                                  <td class="actions" data-th="">
-                                    <input type="submit" name="delete" class="btn btn-danger btn-sm" value="${bean.value.number}"><i class="fa fa-trash-o"><!-- Do not remove --></i></input>
-                                    <!-- <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button> -->							
+                                 	<button type="submit" class="btn btn-danger btn-sm" name="delete" value="${bean.value.number}"><i class="fa fa-trash-o">
+                                       <!-- Do not remove -->
+                                    </i></button>					
                                  </td>
                               </tr>
                            </c:forEach>
                         </tbody>
                         <tfoot>
                            <tr>
-                              <td class="align-bottom"><a href="Browse" class="btn btn-warning"><i class="fa fa-angle-left"><!-- Do not remove --></i> Continue Shopping</a></td>
+                              <td class="align-bottom">
+                                 <a href="Browse?name=&amp;search=1&amp;sortBy=NAME&amp;catID=NONE" class="btn btn-warning">
+                                    <i class="fa fa-angle-left">
+                                       <!-- Do not remove -->
+                                    </i>
+                                    Continue Shopping
+                                 </a>
+                              </td>
                               <td colspan="2" class="hidden-xs"></td>
                               <td class="hidden-xs text-right">
                                  <small>
@@ -70,9 +80,20 @@
                                  </small>
                                  <strong>Total $${cart.total} </strong>
                                  <input type="hidden" name="update" value="true"/>
-                                 <button class="btn btn-info btn-sm"><i class="fa fa-refresh"><!-- Do not remove --></i></button>
+                                 <button class="btn btn-info btn-sm">
+                                    <i class="fa fa-refresh">
+                                       <!-- Do not remove -->
+                                    </i>
+                                 </button>
                               </td>
-                              <td class="align-bottom"><a href="Checkout" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"><!-- Do not remove --></i></a></td>
+                              <td class="align-bottom">
+                                 <a href="Checkout" class="btn btn-success btn-block">
+                                    Checkout 
+                                    <i class="fa fa-angle-right">
+                                       <!-- Do not remove -->
+                                    </i>
+                                 </a>
+                              </td>
                            </tr>
                         </tfoot>
                      </table>
@@ -81,36 +102,53 @@
                <c:if test="${empty cart.items}">
                   <h2>Your Shopping Cart is empty.</h2>
                   <p>Your Shopping Cart lives to serve. Give it purpose--fill it with foods!<br></br>
-                     Continue shopping on the <a href="Dash">eFoods homepage</a>.
+                     Continue shopping on the <a href="Browse?name=&amp;search=1&amp;sortBy=NAME&amp;catID=NONE">eFoods catalog</a>.
                   </p>
                </c:if>
                <br></br>
                <small>The price and availability of items at eFoods are subject to change. The shopping cart is a temporary place to store a list of your items and reflects each item's most recent price.</small>
             </c:if>
             <c:if test="${!empty ad}">
-			<div style="text-align:left;">
-			
-				<p>We noticed that you liked ${suggest}.<br/>Would you like to purchase this too?</p>
-				<table style="text-align:center;" border="1">
-					<tr style="padding: 6px;"><td> Name: ${ad.name} </td></tr>
-					<tr style="padding: 6px;"><td> Product number: ${ad.number}</td></tr>
-					<tr style="padding: 6px;"><td> Price: $${ad.price}</td></tr>
-					<tr style="padding: 6px;"><td> Catalog ID: ${ad.category}</td></tr>	
-				</table>
-				
-				<form action="Cart" method="POST">
-					<input type="hidden" name="name" value="${ad.name}"></input>
-					<input type="hidden" name="id" value="${ad.number}"></input>
-					<input type="hidden" name="price" value="${ad.price}"></input>
-					<input type="number" min="1" name="qty" value="1" placeholder="qty"/>
-						
-					<input type="hidden" name="add" value="true"/>
-						
-					<button>Add to cart</button>
-						
-				</form><br/>
-			</div>
-		</c:if>
+               <br></br>
+               <h3>Featured Recommendations</h3>
+               <p>We noticed that you liked ${suggest}.<br/>You might also like:</p>
+               <div class="item text-center">
+                  <c:choose>
+                     <c:when test = "${ad.category == '3'}">
+                        <img src="./assets/img/meat.png" alt="${b.name}" class="img-item"></img>
+                     </c:when>
+                     <c:when test = "${ad.category == '4'}">
+                        <img src="./assets/img/cheese.png" alt="${b.name}" class="img-item"></img>
+                     </c:when>
+                     <c:when test = "${ad.category == '5'}">
+                        <img src="./assets/img/ice-cream.png" alt="${b.name}" class="img-item"></img>
+                     </c:when>
+                     <c:when test = "${ad.category == '6'}">
+                        <img src="./assets/img/cereal.png" alt="${b.name}" class="img-item"></img>
+                     </c:when>
+                     <c:otherwise>
+                        <img src="./assets/img/bread.png" alt="${b.name}" class="img-item"></img>
+                     </c:otherwise>
+                  </c:choose>
+                  <div class="info">
+                     <h3 class="item-name">${ad.name}</h3>
+                     <p class="description">Category: ${ad.category}<br></br>Product ID: ${ad.number}</p>
+                     <h5>$${ad.price}</h5>
+                     <div class="col-md-8 offset-md-2">
+                        <form action="Cart" method="POST">
+                           <div class="form-group">
+                              <input type="hidden" name="name" value="${ad.name}"></input>
+                              <input type="hidden" name="id" value="${ad.number}"></input>
+                              <input type="hidden" name="price" value="${ad.price}"></input>
+                              <input type="number" class="form-control" min="1" name="qty" value="1" placeholder="qty" />
+                              <input type="hidden" name="add" value="true" />
+                           </div>
+                           <button class="btn btn-primary btn-sm mb-2">Add to cart</button>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </c:if>
             <c:if test="${!empty error}">
                <div class="alert alert-danger" role="alert">
                   <strong>Error.</strong> ${error}

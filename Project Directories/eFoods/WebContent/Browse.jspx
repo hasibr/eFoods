@@ -60,9 +60,25 @@
       <div class="items">
             <c:forEach items="${result}" var = "b">
                      <div class="item text-center">
-                        <img src="./assets/img/bread.png" alt="${b.name}" class="img-item"></img>
+                     	<c:choose>
+                        <c:when test = "${b.category == '3'}">
+                           <img src="./assets/img/meat.png" alt="${b.name}" class="img-item"></img>
+                        </c:when>
+                        <c:when test = "${b.category == '4'}">
+                           <img src="./assets/img/cheese.png" alt="${b.name}" class="img-item"></img>
+                        </c:when>
+                        <c:when test = "${b.category == '5'}">
+                           <img src="./assets/img/ice-cream.png" alt="${b.name}" class="img-item"></img>
+                        </c:when>
+                        <c:when test = "${b.category == '6'}">
+                           <img src="./assets/img/cereal.png" alt="${b.name}" class="img-item"></img>
+                        </c:when>
+                        <c:otherwise>
+                           <img src="./assets/img/bread.png" alt="${b.name}" class="img-item"></img>
+                        </c:otherwise>
+                     </c:choose>
                         <div class="info">
-                           <h3>${b.name}</h3>
+                           <h3 class="item-name">${b.name}</h3>
                            <p class="description">Category: ${b.category}<br></br>Product ID: ${b.number}</p>
                            <h5>$${b.price}</h5>
                            <div class="col-md-8 offset-md-2">

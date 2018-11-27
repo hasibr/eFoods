@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+   - Title: CategoriesComponent
+   -
+   - Description:
+   -     Categories component for the main page.
+   -
+   - Parameters:
+   -     result     the categories result
+   -->
+<jsp:root
+   xmlns:jsp="http://java.sun.com/JSP/Page"
+   xmlns:c="http://java.sun.com/jsp/jstl/core"
+   xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+   xmlns:f="http://java.sun.com/jsp/jstl/fmt" version="2.0">
+   <div class="container">
+      <div class="row">
+          <small>Know what you're looking for? Use the express checkout!</small>
+      </div>
+      <div class="row">
+          <form action="Express" method="POST">
+              <div class="form-row align-items-center">
+                <div class="col-sm-6 my-1">
+                  <label class="sr-only" for="prodIdInput">Product ID</label>
+                  <input type="text" class="form-control" name="id" value="${id}" id="prodIdInput" placeholder="Product ID"/>
+                </div>
+                <div class="col-sm-3 my-1">
+                    <label class="sr-only" for="prodQtyInput">Quantity</label>
+                    <input type="number" class="form-control"  min="1" name="qty" value="1" placeholder="Qty" id="prodQtyInput"/>
+                  </div>
+                <div class="col-auto my-1">
+                    <input type="submit" class="btn btn-primary" name="calc" value="Add to Cart"/>
+                </div>
+              </div>
+            </form>
+      </div>
+      </div>
+</jsp:root>
