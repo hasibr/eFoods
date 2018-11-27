@@ -35,7 +35,7 @@
 				</div>
 			</c:if>
 			
-			<h2 style="color:blue;">My Account</h2>
+			<h3 style="color:blue; text-align:center">My Account</h3>
 			
 			
 			

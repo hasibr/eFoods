@@ -1,124 +1,150 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<jsp:root
-   xmlns:jsp="http://java.sun.com/JSP/Page"
-   xmlns:c="http://java.sun.com/jsp/jstl/core"
-   xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-   version="2.0">
-   <jsp:directive.page contentType="text/html; charset=UTF-8" 
-      pageEncoding="UTF-8" session="false"/>
-   <jsp:output doctype-root-element="html"
-      doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-      doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
-      omit-xml-declaration="true" />
-   <html
-      xmlns="http://www.w3.org/1999/xhtml">
-      <jsp:include page="/Includes/Header.jspx">
-         <jsp:param name="title"  value="Foods R Us" />
-      </jsp:include>
-      <body>
-         <jsp:include page="/Includes/Navbar.jspx">
-            <jsp:param name="title"  value="Foods R Us" />
-         </jsp:include>
-         <div class="container">
-            <c:if test="${!empty cart}">
-               <c:if test="${!empty cart.items}">
-                  <form action="Cart" method="POST">
-                     <h2>Shopping Cart</h2>
-                     <table id="cart" class="table table-hover table-condensed">
-                        <thead>
-                           <tr>
-                              <th style="width:50%">Product</th>
-                              <th style="width:10%">Price</th>
-                              <th style="width:8%">Quantity</th>
-                              <th style="width:22%" class="text-center">Subtotal</th>
-                              <th style="width:10%"></th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           <c:forEach var="bean" items="${cart.items}">
-                              <tr>
-                                 <td data-th="Product">
-                                    <div class="row">
-                                       <div class="col-sm-2 hidden-xs"><img src="./assets/img/bread.png" alt="${bean.value.name}" class="img-thumbnail"/></div>
-                                       <div class="col-sm-10">
-                                          <h4 class="nomargin">${bean.value.name}</h4>
-                                          <p>Product ID: ${bean.value.number}</p>
-                                       </div>
-                                    </div>
-                                 </td>
-                                 <td data-th="Price">$${bean.value.price}</td>
-                                 <td data-th="Quantity">
-                                    <input type="number" name="${bean.value.number}" class="form-control text-center" value="${bean.value.qty}" min="0" placeholder="qty"/>
-                                 </td>
-                                 <td data-th="Subtotal" class="text-center">$${bean.value.totalPrice}</td>
-                                 <td class="actions" data-th="">
-                                    <input type="submit" name="delete" class="btn btn-danger btn-sm" value="${bean.value.number}"><i class="fa fa-trash-o"><!-- Do not remove --></i></input>
-                                    <!-- <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button> -->							
-                                 </td>
-                              </tr>
-                           </c:forEach>
-                        </tbody>
-                        <tfoot>
-                           <tr>
-                              <td class="align-bottom"><a href="Browse" class="btn btn-warning"><i class="fa fa-angle-left"><!-- Do not remove --></i> Continue Shopping</a></td>
-                              <td colspan="2" class="hidden-xs"></td>
-                              <td class="hidden-xs text-right">
-                                 <small>
-                                 Sub Total: $${cart.subTotal}<br></br>
-                                 HST: $${cart.tax}<br></br>
-                                 Shipping: $${cart.shipping}<br></br>
-                                 </small>
-                                 <strong>Total $${cart.total} </strong>
-                                 <input type="hidden" name="update" value="true"/>
-                                 <button class="btn btn-info btn-sm"><i class="fa fa-refresh"><!-- Do not remove --></i></button>
-                              </td>
-                              <td class="align-bottom"><a href="Checkout" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"><!-- Do not remove --></i></a></td>
-                           </tr>
-                        </tfoot>
-                     </table>
-                  </form>
-               </c:if>
-               <c:if test="${empty cart.items}">
-                  <h2>Your Shopping Cart is empty.</h2>
-                  <p>Your Shopping Cart lives to serve. Give it purpose--fill it with foods!<br></br>
-                     Continue shopping on the <a href="Dash">eFoods homepage</a>.
-                  </p>
-               </c:if>
-               <br></br>
-               <small>The price and availability of items at eFoods are subject to change. The shopping cart is a temporary place to store a list of your items and reflects each item's most recent price.</small>
-            </c:if>
-            <c:if test="${!empty ad}">
-			<div style="text-align:left;">
-			
-				<p>We noticed that you liked ${suggest}.<br/>Would you like to purchase this too?</p>
-				<table style="text-align:center;" border="1">
-					<tr style="padding: 6px;"><td> Name: ${ad.name} </td></tr>
-					<tr style="padding: 6px;"><td> Product number: ${ad.number}</td></tr>
-					<tr style="padding: 6px;"><td> Price: $${ad.price}</td></tr>
-					<tr style="padding: 6px;"><td> Catalog ID: ${ad.category}</td></tr>	
-				</table>
-				
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" version="2.0">
+	<jsp:directive.page contentType="text/html; charset=UTF-8"
+		pageEncoding="UTF-8" session="false" />
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+		omit-xml-declaration="true" />
+	<html xmlns="http://www.w3.org/1999/xhtml">
+<jsp:include page="/Includes/Header.jspx">
+	<jsp:param name="title" value="Foods R Us" />
+</jsp:include>
+<body>
+	<jsp:include page="/Includes/Navbar.jspx">
+		<jsp:param name="title" value="Foods R Us" />
+	</jsp:include>
+	<div class="container">
+		<c:if test="${!empty cart}">
+			<c:if test="${!empty cart.items}">
 				<form action="Cart" method="POST">
-					<input type="hidden" name="name" value="${ad.name}"></input>
-					<input type="hidden" name="id" value="${ad.number}"></input>
-					<input type="hidden" name="price" value="${ad.price}"></input>
-					<input type="number" min="1" name="qty" value="1" placeholder="qty"/>
-						
-					<input type="hidden" name="add" value="true"/>
-						
+					<h2>Shopping Cart</h2>
+					<table id="cart" class="table table-hover table-condensed">
+						<thead>
+							<tr>
+								<th style="width: 50%">Product</th>
+								<th style="width: 10%">Price</th>
+								<th style="width: 8%">Quantity</th>
+								<th style="width: 22%" class="text-center">Subtotal</th>
+								<th style="width: 10%"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="bean" items="${cart.items}">
+								<tr>
+									<td data-th="Product">
+										<div class="row">
+											<div class="col-sm-2 hidden-xs">
+												<img src="./assets/img/bread.png" alt="${bean.value.name}"
+													class="img-thumbnail" />
+											</div>
+											<div class="col-sm-10">
+												<h4 class="nomargin">${bean.value.name}</h4>
+												<p>Product ID: ${bean.value.number}</p>
+											</div>
+										</div>
+									</td>
+									<td data-th="Price">$${bean.value.price}</td>
+									<td data-th="Quantity"><input type="number"
+										name="${bean.value.number}" class="form-control text-center"
+										value="${bean.value.qty}" min="0" placeholder="qty" /></td>
+									<td data-th="Subtotal" class="text-center">$${bean.value.totalPrice}</td>
+									<td class="actions" data-th="">
+									<input type="checkbox" name="delete" value="${bean.value.number}">
+										<i class="fa fa-trash-o">
+											<!-- Do not remove -->
+										</i>
+									</input>
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+						<tfoot>
+							<tr>
+								<td class="align-bottom"><a href="Browse?search=1&amp;sortBy=NAME&amp;catID=NONE&amp;name="
+									class="btn btn-warning"><i class="fa fa-angle-left">
+											<!-- Do not remove -->
+									</i> Continue Shopping</a></td>
+								<td colspan="2" class="hidden-xs">
+									<input type="hidden" name="update" value="true" />
+									<button class="btn btn-info">
+										<i class="fa fa-refresh">
+											<!-- Do not remove -->
+										</i></button>
+								</td>
+								<td class="hidden-xs text-center"><small> Sub Total:
+										$${cart.subTotal}<br></br> HST: $${cart.tax}<br></br>
+										Shipping: $${cart.shipping}<br></br>
+								</small> <strong>Total $${cart.total} </strong> 
+									</td>
+								<td class="align-bottom"><a href="Checkout"
+									class="btn btn-success btn-block">Checkout <i
+										class="fa fa-angle-right">
+											<!-- Do not remove -->
+									</i></a></td>
+							</tr>
+						</tfoot>
+					</table>
+				</form>
+			</c:if>
+			<c:if test="${empty cart.items}">
+				<h2>Your Shopping Cart is empty.</h2>
+				<p>
+					Your Shopping Cart lives to serve. Give it purpose--fill it with
+					foods!<br></br> Continue shopping on the <a href="Dash">eFoods
+						homepage</a>.
+				</p>
+			</c:if>
+			<br></br>
+			<small>The price and availability of items at eFoods are
+				subject to change. The shopping cart is a temporary place to store a
+				list of your items and reflects each item's most recent price.</small>
+		</c:if>
+		<c:if test="${!empty ad}">
+			<div style="text-align: left;">
+
+				<p>
+					We noticed that you liked ${suggest}.<br />Would you like to
+					purchase this too?
+				</p>
+				<table style="text-align: center;" border="1">
+					<tr style="padding: 6px;">
+						<td>Name: ${ad.name}</td>
+					</tr>
+					<tr style="padding: 6px;">
+						<td>Product number: ${ad.number}</td>
+					</tr>
+					<tr style="padding: 6px;">
+						<td>Price: $${ad.price}</td>
+					</tr>
+					<tr style="padding: 6px;">
+						<td>Catalog ID: ${ad.category}</td>
+					</tr>
+				</table>
+
+				<form action="Cart" method="POST">
+					<input type="hidden" name="name" value="${ad.name}"></input> <input
+						type="hidden" name="id" value="${ad.number}"></input> <input
+						type="hidden" name="price" value="${ad.price}"></input> <input
+						type="number" min="1" name="qty" value="1" placeholder="qty" /> <input
+						type="hidden" name="add" value="true" />
+
 					<button>Add to cart</button>
-						
-				</form><br/>
+
+				</form>
+				<br />
 			</div>
 		</c:if>
-            <c:if test="${!empty error}">
-               <div class="alert alert-danger" role="alert">
-                  <strong>Error.</strong> ${error}
-               </div>
-            </c:if>
-         </div>
-         <br></br>
-         <jsp:include page="/Includes/Footer.jspx"></jsp:include>
-      </body>
-   </html>
+		<c:if test="${!empty error}">
+			<div class="alert alert-danger" role="alert">
+				<strong>Error.</strong> ${error}
+			</div>
+		</c:if>
+	</div>
+	<br></br>
+	<jsp:include page="/Includes/Footer.jspx"></jsp:include>
+</body>
+	</html>
 </jsp:root>
