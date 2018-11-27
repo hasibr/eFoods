@@ -35,6 +35,10 @@ public class Checkout extends HttpServlet {
 		HttpSession session = request.getSession();
 		ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
 		
+		if(cart == null) {
+			cart = Engine.getInstance().getNewCart();
+		}
+		
 		/*
 		 * the cart is empty so there's no reason to show the checkout page
 		 */

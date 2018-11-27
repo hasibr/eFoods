@@ -105,6 +105,7 @@ public class Engine {
 	 * @param item
 	 * @param cart
 	 * @param add
+	 * @param delete
 	 * @param update
 	 * @param cancel
 	 * @param parameters
@@ -112,7 +113,6 @@ public class Engine {
 	 */
 	public ShoppingCart doCart(Item item, ShoppingCart cart, String add,
 			String update, String cancel, Map<String, String[]> parameters) {
-		
 		
 		if(cancel != null && cancel.equalsIgnoreCase("true"))
 			return emptyCart(cart);
