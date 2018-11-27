@@ -427,5 +427,21 @@ public class Engine {
 		return cart;
 	}
 	
+	public int getAverageTime(List<Integer> analyticList) {
+		
+		if (analyticList.size() == 0) {
+			throw new IllegalArgumentException("No users have performed the required action.");
+		}
+
+		int totalTime = 0;
+		for (Integer time : analyticList) {
+			totalTime += time;
+		}
+
+		totalTime /= analyticList.size();
+
+		return totalTime;
+	}
+	
 //------------------------- end helper methods ---------------------------------------
 }
