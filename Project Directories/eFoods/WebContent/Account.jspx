@@ -34,10 +34,6 @@
 				</div>
 			</c:if>
 			
-			
-			
-			
-			
 			<c:if test="${!empty person}">	
 			<h2 style="color:blue;">My Account</h2>			
 				<div style="text-align:center">

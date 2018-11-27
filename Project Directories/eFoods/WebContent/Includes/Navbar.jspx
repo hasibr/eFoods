@@ -28,6 +28,12 @@
                   -->
                </ul>
                <span class="navbar-text actions">
+               	<a class="btn btn-light action-button" role="button" href="Checkout">
+                     <i class="fa fa-credit-card">
+                        <!-- Do not remove -->
+                     </i>
+                     Checkout
+                  </a>
                   <a class="btn btn-light action-button" role="button" href="Cart">
                      <i class="fa fa-shopping-cart">
                         <!-- Do not remove -->
