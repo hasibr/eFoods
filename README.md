@@ -1,4 +1,4 @@
-# eFoods
+# Foods R Us
 
 An e-commerce web application for food items. The project is separated into three components: eFoods, Auth, middleware (MW).
 
