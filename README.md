@@ -1,9 +1,18 @@
 # eFoods
 
-## B2C
-This is the web application that the user(client) communicates with. all it is supposed to do is collect information from the client(things that they want to order). When they want to check out, they use OAuth to verify their identities. The application(server side) will keep track of all the orders that the clients make and every now and then ships a P/O, ordering all the things the clients want in one shot.
+An e-commerce web application for food items. The project is separated into three components: eFoods, Auth, middleware (MW).
 
-![alt text](https://i.imgur.com/pO7KAkD.gif)
+## eFoods (B2C)
+The client-facing website that users visit and interact with. Displays a catalog of items fetched from a database of categorized food items. Creates a collection of items (purchase order) that a user wants to order. An OAuth service is used to verify their identity on checkout. The server side of the application keeps a record of the orders that clients make and then ships a single purchase order.
 
-## MW
-This is a headles web application that runs asynchronously from the B2C application. It reads the P/O that B2C creates and sends an order to B2B( we aren.t implementing B2B).
+![Animated workflow of the eFoods application](https://i.imgur.com/gcF06Ah.gif)
+
+## Auth
+The authentication service used to sign users in to the website (requires an account from York University's Department of Electrical Engineering and Computer Science).
+
+## Middleware (MW)
+A non-interactive web application that runs asynchronously to the eFoods (business-to-client, B2C) application. It is responsible for reading the purchase orders created by the B2C application in order to send them to a possible business-to-business (B2B) procurement application (not implemented for this project).
+
+## Note
+This project will not be maintained at the moment.
+
